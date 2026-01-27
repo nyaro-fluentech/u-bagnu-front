@@ -40,6 +40,7 @@ const HeroSection = () => {
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
             >
               <path
                 d="M9.17116 12.052L7.75716 13.466L12.0002 17.71L16.2432 13.467L14.8282 12.053L13.0002 13.88V6.34302H11.0002V13.88L9.17116 12.052Z"

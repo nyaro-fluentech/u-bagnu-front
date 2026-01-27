@@ -42,3 +42,60 @@ GSAP with ScrollTrigger is used for scroll-based animations. Animation component
 - Double quotes for strings
 - 2 space indentation
 - Prettier with tailwindcss plugin auto-sorts classes
+
+## SEO Guidelines (IMPORTANT)
+
+SEO is a critical priority for this project. Follow these guidelines for all development work:
+
+### Metadata
+
+- **Every page** must have unique, descriptive `title` and `description` metadata
+- Use the template pattern in `layout.tsx`: `"%s | U Bagnu"` for child pages
+- Include relevant keywords naturally in descriptions (récupération sportive, bain froid, Corse, etc.)
+- Keep titles under 60 characters, descriptions under 160 characters
+
+### Semantic HTML
+
+- Use proper heading hierarchy: one `<h1>` per page, followed by `<h2>`, `<h3>`, etc.
+- Use semantic elements: `<section>`, `<article>`, `<nav>`, `<header>`, `<footer>`, `<main>`
+- Add `id` attributes to sections for anchor navigation (e.g., `id="services"`, `id="about"`)
+
+### Images
+
+- **Always** include descriptive `alt` attributes on all `<Image>` components
+- Use descriptive file names (e.g., `sauna-infrarouge.jpg` not `image-1.jpg`)
+- Prefer Next.js `<Image>` component for automatic optimization
+- Add `width` and `height` props to prevent layout shift
+- Consider adding `loading="eager"` for above-the-fold images
+
+### Performance (Core Web Vitals)
+
+- Minimize JavaScript bundle size
+- Use `next/font` for font optimization (already configured)
+- Lazy load below-the-fold content and images
+- Avoid layout shifts (CLS) - always define dimensions for media
+
+### Structured Data
+
+- Add JSON-LD structured data for local business when appropriate
+- Include organization, service, and location schema
+
+### Links & Navigation
+
+- Use descriptive anchor text (not "click here")
+- Internal links should use Next.js `<Link>` component
+- External links should have `rel="noopener noreferrer"`
+
+### Accessibility (impacts SEO)
+
+- Ensure sufficient color contrast
+- Add `aria-label` to icon-only buttons
+- Make all interactive elements keyboard accessible
+- Use `lang="fr"` on `<html>` element (already configured)
+
+### Files
+
+- `app/layout.tsx` - Global metadata configuration
+- `app/sitemap.ts` - Auto-generated sitemap
+- `app/robots.ts` - Search engine crawling rules
+- `public/img/og-image.jpg` - Open Graph image (1200x630px) - TODO: create this image

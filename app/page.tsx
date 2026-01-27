@@ -3,6 +3,8 @@ import AudiencesSection from "./_components/sections/audiences-section"
 import ServicesSection from "./_components/sections/services-section"
 import ServicesDetailSection from "./_components/sections/services-detail-section"
 import ServicesNeedsSection from "./_components/sections/services-needs-section"
+import AboutSection from "./_components/sections/about-section"
+import GallerySection from "./_components/sections/gallery-section"
 
 export default function Home() {
   return (
@@ -12,6 +14,8 @@ export default function Home() {
       <ServicesSection />
       <ServicesDetailSection />
       <ServicesNeedsSection />
+      <AboutSection />
+      <GallerySection />
     </main>
   )
 }

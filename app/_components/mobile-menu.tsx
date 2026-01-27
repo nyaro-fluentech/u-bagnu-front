@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -16,13 +16,40 @@ const menuItems = [
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
-  const [mounted] = useState(() => {
-    // Check if we're on the client side
-    if (typeof window !== "undefined") {
-      return true
+  const [mounted, setMounted] = useState(false)
+  const [buttonPosition, setButtonPosition] = useState({ top: 0, right: 0 })
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  // Set mounted after hydration
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true)
+  }, [])
+
+  // Update button position continuously and on resize
+  useEffect(() => {
+    const updatePosition = () => {
+      if (buttonRef.current) {
+        const rect = buttonRef.current.getBoundingClientRect()
+        setButtonPosition({
+          top: rect.top,
+          right: window.innerWidth - rect.right,
+        })
+      }
     }
-    return false
-  })
+
+    // Initial position
+    updatePosition()
+
+    // Update on resize
+    window.addEventListener("resize", updatePosition)
+    window.addEventListener("scroll", updatePosition)
+
+    return () => {
+      window.removeEventListener("resize", updatePosition)
+      window.removeEventListener("scroll", updatePosition)
+    }
+  }, [])
 
   const toggleMenu = () => {
     if (isOpen) {
@@ -32,6 +59,14 @@ const MobileMenu = () => {
         setIsAnimating(false)
       }, 400)
     } else {
+      // Capture position right before opening
+      if (buttonRef.current) {
+        const rect = buttonRef.current.getBoundingClientRect()
+        setButtonPosition({
+          top: rect.top,
+          right: window.innerWidth - rect.right,
+        })
+      }
       setIsOpen(true)
     }
   }
@@ -56,51 +91,57 @@ const MobileMenu = () => {
     }
   }, [isOpen])
 
-  // Store button position for portal rendering
-  const [buttonPosition, setButtonPosition] = useState({ top: 0, right: 0 })
-  const buttonRef = useRef<HTMLButtonElement>(null)
-
-  // Update button position when menu opens
-  useEffect(() => {
-    if (isOpen && buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect()
-      setButtonPosition({
-        top: rect.top,
-        right: window.innerWidth - rect.right,
-      })
-    }
-  }, [isOpen])
-
-  const BurgerButton = (
-    <button
-      ref={!isOpen ? buttonRef : undefined}
-      onClick={toggleMenu}
-      className={`flex h-[40px] w-[40px] flex-col items-center justify-center gap-[6px] lg:hidden ${isOpen ? "fixed z-101 -translate-x-[32px] translate-y-[32px]" : "text-primary relative z-101"}`}
-      style={
-        isOpen
-          ? { top: buttonPosition.top, right: buttonPosition.right }
-          : undefined
-      }
-      aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
-      aria-expanded={isOpen}
-    >
-      <span
-        className={`block h-[3px] w-[28px] rounded-full transition-all duration-300 ease-out ${isOpen ? "translate-y-[9px] rotate-45 bg-white" : "bg-primary"}`}
-      />
-      <span
-        className={`block h-[3px] w-[28px] rounded-full transition-all duration-300 ease-out ${isOpen ? "scale-0 bg-white opacity-0" : "bg-primary"}`}
-      />
-      <span
-        className={`block h-[3px] w-[28px] rounded-full transition-all duration-300 ease-out ${isOpen ? "-translate-y-[9px] -rotate-45 bg-white" : "bg-primary"}`}
-      />
-    </button>
-  )
-
   return (
     <>
-      {/* Burger button - when closed, render in place; when open, render via portal */}
-      {!isOpen && BurgerButton}
-      {mounted && isOpen && createPortal(BurgerButton, document.body)}
+      {/* Invisible placeholder to maintain position in header */}
+      <button
+        ref={buttonRef}
+        onClick={toggleMenu}
+        className={`flex h-[40px] w-[40px] flex-col items-center justify-center gap-[6px] lg:hidden ${isOpen ? "pointer-events-none opacity-0" : ""}`}
+        aria-label="Ouvrir le menu"
+        aria-expanded={isOpen}
+        aria-hidden={isOpen}
+        tabIndex={isOpen ? -1 : 0}
+      >
+        <span className="bg-primary block h-[3px] w-[28px] rounded-full transition-all duration-300 ease-out" />
+        <span className="bg-primary block h-[3px] w-[28px] rounded-full transition-all duration-300 ease-out" />
+        <span className="bg-primary block h-[3px] w-[28px] rounded-full transition-all duration-300 ease-out" />
+      </button>
+
+      {/* Animated toggle button rendered via portal */}
+      {mounted &&
+        createPortal(
+          <button
+            onClick={toggleMenu}
+            className={`fixed z-[101] flex h-[40px] w-[40px] flex-col items-center justify-center gap-[6px] transition-all duration-300 ease-out lg:hidden ${
+              isOpen
+                ? "pointer-events-auto scale-100 opacity-100"
+                : "pointer-events-none scale-90 opacity-0"
+            }`}
+            style={{ top: buttonPosition.top, right: buttonPosition.right }}
+            aria-label="Fermer le menu"
+            aria-expanded={isOpen}
+            aria-hidden={!isOpen}
+            tabIndex={isOpen ? 0 : -1}
+          >
+            <span
+              className={`block h-[3px] w-[28px] origin-center rounded-full bg-white transition-all duration-300 ease-out ${
+                isOpen ? "translate-y-[9px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block h-[3px] w-[28px] rounded-full bg-white transition-all duration-300 ease-out ${
+                isOpen ? "scale-0 opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block h-[3px] w-[28px] origin-center rounded-full bg-white transition-all duration-300 ease-out ${
+                isOpen ? "-translate-y-[9px] -rotate-45" : ""
+              }`}
+            />
+          </button>,
+          document.body
+        )}
 
       {/* Mobile menu overlay - rendered via portal to bypass header's backdrop-blur containing block */}
       {mounted &&
@@ -153,11 +194,7 @@ const MobileMenu = () => {
                 style={{ animationDelay: isAnimating ? "0ms" : "500ms" }}
               >
                 {/* Contact button */}
-                <Button
-                  variant="secondary"
-                  className="w-full rounded-full bg-[#FFE8C2] py-[20px] text-[18px] font-semibold text-[#2954A4] transition-all duration-300 hover:scale-[1.02] hover:bg-white"
-                  onClick={closeMenu}
-                >
+                <Button variant="secondary" onClick={closeMenu}>
                   Contactez-nous
                 </Button>
 

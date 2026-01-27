@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Outfit, Bricolage_Grotesque } from "next/font/google"
 import "./globals.css"
 import Header from "./_components/header"
+import Footer from "./_components/footer"
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -88,9 +89,14 @@ const jsonLd = {
   image: "https://u-bagnu.com/img/og-image.jpg",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Z.I Erbajolo Lotissement Restituta",
+    addressLocality: "Furiani",
+    postalCode: "20600",
     addressRegion: "Corse",
     addressCountry: "FR",
   },
+  telephone: "+33634523558",
+  email: "ubagnu.corsica@gmail.com",
   areaServed: {
     "@type": "Place",
     name: "Corse, France",
@@ -124,6 +130,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   )

@@ -5,6 +5,8 @@ import ServicesDetailSection from "./_components/sections/services-detail-sectio
 import ServicesNeedsSection from "./_components/sections/services-needs-section"
 import AboutSection from "./_components/sections/about-section"
 import GallerySection from "./_components/sections/gallery-section"
+import TestimonialsSection from "./_components/sections/testimonials-section"
+import BrochureSection from "./_components/sections/brochure-section"
 
 export default function Home() {
   return (
@@ -16,6 +18,8 @@ export default function Home() {
       <ServicesNeedsSection />
       <AboutSection />
       <GallerySection />
+      <TestimonialsSection />
+      <BrochureSection />
     </main>
   )
 }

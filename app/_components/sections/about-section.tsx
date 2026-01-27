@@ -14,7 +14,7 @@ const AboutSection = () => {
         </h2>
 
         {/* Content row */}
-        <div className="flex flex-row items-center gap-[73px]">
+        <div className="flex flex-row items-start gap-[73px]">
           {/* Left - Image */}
           <div className="relative h-[622px] w-[431px] shrink-0">
             <Image

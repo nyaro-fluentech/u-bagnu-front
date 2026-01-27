@@ -9,37 +9,57 @@ gsap.registerPlugin(ScrollTrigger)
 const HeaderAnimation = () => {
   useEffect(() => {
     const header = document.querySelector("#header-container")
-    const section = document.querySelector("#services")
+    if (!header) return
 
-    if (!header || !section) return
+    // Get all sections with data-hide-header attribute, sorted by data-numero
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-hide-header]")
+    ).sort((a, b) => {
+      const numA = parseInt(a.dataset.numero || "0", 10)
+      const numB = parseInt(b.dataset.numero || "0", 10)
+      return numA - numB
+    })
 
-    const ctx = gsap.context(() => {
-      // Fade out when entering services section
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top 120px",
-        end: "top 0px",
-        scrub: true,
-        onUpdate: (self) => {
-          gsap.set(header, {
-            opacity: 1 - self.progress,
-            pointerEvents: self.progress > 0.5 ? "none" : "auto",
-          })
+    if (sections.length === 0) return
+
+    const firstSection = sections[0]
+    const lastSection = sections[sections.length - 1]
+
+    const showHeader = () => {
+      gsap.set(header, { pointerEvents: "auto" })
+      gsap.to(header, {
+        opacity: 1,
+        duration: 0.4,
+        ease: "power2.out",
+      })
+    }
+
+    const hideHeader = () => {
+      gsap.to(header, {
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.out",
+        onComplete: () => {
+          gsap.set(header, { pointerEvents: "none" })
         },
       })
+    }
 
-      // Fade back in when leaving services section
+    const ctx = gsap.context(() => {
+      // Hide header when entering first section
       ScrollTrigger.create({
-        trigger: section,
-        start: "bottom bottom",
-        end: "bottom top+=120px",
-        scrub: true,
-        onUpdate: (self) => {
-          gsap.set(header, {
-            opacity: self.progress,
-            pointerEvents: self.progress > 0.5 ? "auto" : "none",
-          })
-        },
+        trigger: firstSection,
+        start: "top 120px",
+        onEnter: hideHeader,
+        onLeaveBack: showHeader,
+      })
+
+      // Show header when leaving last section
+      ScrollTrigger.create({
+        trigger: lastSection,
+        start: "bottom top",
+        onEnter: showHeader,
+        onLeaveBack: hideHeader,
       })
     })
 

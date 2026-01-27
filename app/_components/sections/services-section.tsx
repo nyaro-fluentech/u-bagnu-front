@@ -181,6 +181,8 @@ const ServicesSection = () => {
     <section
       id="services"
       className="flex flex-col gap-[64px] overflow-x-clip bg-[#2954A4] pt-[64px]"
+      data-hide-header
+      data-numero="1"
     >
       {/* Client-side animation handler */}
       <ServicesScrollAnimation cardCount={services.length} />

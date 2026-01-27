@@ -13,18 +13,21 @@ const BrochureForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-[834px]">
-      <div className="flex flex-1 items-center rounded-[44px] bg-white p-[10px]">
+    <form onSubmit={handleSubmit} className="flex w-full max-w-[834px]">
+      <div className="flex w-full flex-col gap-[12px] lg:flex-row lg:items-center lg:gap-0 lg:rounded-[44px] lg:bg-white lg:p-[10px]">
         <input
           type="email"
           placeholder="Votre adresse email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="font-outfit flex-1 bg-transparent px-[32px] py-[20px] text-[16px] text-[#3D3D3D] placeholder-[#A2A2A2] focus:outline-none"
+          className="font-outfit w-full flex-1 rounded-[44px] bg-white px-[24px] py-[16px] text-[14px] text-[#3D3D3D] placeholder-[#A2A2A2] focus:outline-none md:text-[15px] lg:rounded-none lg:bg-transparent lg:px-[32px] lg:py-[20px] lg:text-[16px]"
           aria-label="Votre adresse email"
         />
-        <Button type="submit" className="px-[32px] py-[18px] text-[16px]">
+        <Button
+          type="submit"
+          className="w-full px-[24px] py-[16px] text-[14px] md:text-[15px] lg:w-auto lg:px-[32px] lg:py-[18px] lg:text-[16px]"
+        >
           Télécharger la brochure
         </Button>
       </div>

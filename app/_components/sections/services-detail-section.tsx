@@ -29,12 +29,60 @@ const ServicesDetailSection = () => {
   return (
     <section
       id="services-detail"
-      className="bg-background relative my-[160px] h-auto snap-normal px-[122px] xl:h-[300dvh]"
+      className="bg-background relative my-[48px] h-auto px-[24px] lg:my-[160px] lg:px-[122px] xl:h-[300dvh]"
       data-hide-header
       data-numero="2"
     >
       <ServicesDetailAnimation />
-      <div className="sticky top-0 flex h-auto w-full items-center justify-center py-[160px] xl:h-dvh">
+
+      {/* Mobile Layout - Vertical cards with text overlay */}
+      <div className="flex flex-col gap-[24px] xl:hidden">
+        {/* Header */}
+        <div className="flex flex-col gap-[12px]">
+          <h2 className="font-outfit text-[32px] leading-[110%] font-medium md:text-[48px]">
+            Des services
+            <br />
+            pensés pour vous
+          </h2>
+          <p className="font-inter text-[14px] md:text-[16px]">
+            Chaque parcours mérite une attention unique et personnalisée.
+          </p>
+        </div>
+
+        {/* Cards */}
+        <div className="flex flex-col gap-[16px]">
+          {services.map((service, i) => (
+            <div
+              key={i}
+              className="relative h-[450px] w-full overflow-hidden rounded-[16px] md:h-[500px]"
+            >
+              <Image
+                src={service.image}
+                alt={service.title}
+                fill
+                className="object-cover"
+              />
+              {/* Gradient overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              {/* Content */}
+              <div className="absolute inset-0 flex flex-col justify-end p-[24px] text-white">
+                <span className="font-inter mb-[8px] text-[12px] opacity-80">
+                  {service.category}
+                </span>
+                <h3 className="font-bricolage-grotesque mb-[12px] text-[28px] leading-[110%] font-medium md:text-[32px]">
+                  {service.title}
+                </h3>
+                <p className="font-inter text-[14px] leading-[150%] opacity-90 md:text-[15px]">
+                  {service.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop Layout - Horizontal scroll animation */}
+      <div className="sticky top-0 hidden h-dvh w-full items-center justify-center py-[160px] xl:flex">
         <div className="mx-auto flex w-fit flex-row items-start gap-[83px]">
           {/* Left - Image */}
           <div className="relative h-[600px] w-[468px] shrink-0 overflow-hidden rounded-[24px]">
@@ -64,7 +112,7 @@ const ServicesDetailSection = () => {
             </div>
 
             {/* Service detail blocks */}
-            <div className="service-blocks-container relative overflow-hidden max-xl:flex max-xl:h-auto max-xl:flex-col max-xl:gap-[40px]">
+            <div className="service-blocks-container relative overflow-hidden">
               {services.map((service, i) => (
                 <div
                   key={i}

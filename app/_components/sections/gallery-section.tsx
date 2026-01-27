@@ -69,7 +69,7 @@ const GallerySection = () => {
     <section
       id="gallery"
       aria-labelledby="gallery-heading"
-      className="bg-background relative overflow-hidden py-[64px]"
+      className="bg-background relative overflow-hidden py-[32px] md:py-[64px]"
     >
       {/* Visually hidden heading for SEO and accessibility */}
       <h2 id="gallery-heading" className="sr-only">
@@ -79,11 +79,11 @@ const GallerySection = () => {
       <GalleryAnimation />
 
       {/* Image Grid - Full width flex layout */}
-      <div className="relative flex w-full flex-col gap-[45px]">
+      <div className="relative flex w-full flex-col gap-[16px] md:gap-[45px]">
         {/* Row 1 */}
-        <div className="relative flex w-full flex-row items-center gap-[45px]">
+        <div className="relative flex w-full flex-row items-center gap-[16px] md:gap-[45px]">
           {/* Left - Full height, no left border radius */}
-          <div className="gallery-block-0 relative h-[632px] flex-1 overflow-hidden rounded-r-[24px]">
+          <div className="gallery-block-0 relative h-[250px] flex-1 overflow-hidden rounded-r-[12px] md:h-[632px] md:rounded-r-[24px]">
             {allImages.map((src, i) => (
               <Image
                 key={src}
@@ -96,7 +96,7 @@ const GallerySection = () => {
             ))}
           </div>
           {/* Center - Rounded */}
-          <div className="gallery-block-1 relative h-[632px] w-1/4 shrink-0 overflow-hidden rounded-[24px]">
+          <div className="gallery-block-1 relative h-[250px] w-1/3 shrink-0 overflow-hidden rounded-[12px] md:h-[632px] md:rounded-[24px] lg:w-1/4">
             {allImages.map((src, i) => (
               <Image
                 key={src}
@@ -109,7 +109,7 @@ const GallerySection = () => {
             ))}
           </div>
           {/* Right - Full height, no right border radius */}
-          <div className="gallery-block-2 relative h-[632px] flex-1 overflow-hidden rounded-l-[24px]">
+          <div className="gallery-block-2 relative h-[250px] flex-1 overflow-hidden rounded-l-[12px] md:h-[632px] md:rounded-l-[24px]">
             {allImages.map((src, i) => (
               <Image
                 key={src}
@@ -125,13 +125,13 @@ const GallerySection = () => {
           {/* Marquee Text - positioned at the bottom of row 1, centered in the gap */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute right-0 bottom-0 left-0 z-10 translate-y-[calc(50%+24.5px)] overflow-hidden py-[64px]"
+            className="pointer-events-none absolute right-0 bottom-0 left-0 z-10 translate-y-[calc(50%+8px)] overflow-hidden py-[24px] md:translate-y-[calc(50%+24.5px)] md:py-[64px]"
           >
             <div className="marquee-container flex whitespace-nowrap">
               {[...Array(4)].map((_, i) => (
                 <span
                   key={i}
-                  className="marquee-text font-outfit text-primary mx-[40px] text-[120px] font-bold uppercase"
+                  className="marquee-text font-outfit text-primary mx-[20px] text-[64px] font-medium uppercase md:mx-[40px] md:text-[120px]"
                 >
                   Récupération sportive, relaxation et bien-être
                 </span>
@@ -141,9 +141,9 @@ const GallerySection = () => {
         </div>
 
         {/* Row 2 */}
-        <div className="flex w-full flex-row items-stretch gap-[45px]">
+        <div className="flex w-full flex-row items-stretch gap-[16px] md:gap-[45px]">
           {/* Left - Full height, no left border radius */}
-          <div className="gallery-block-3 relative h-[629px] flex-1 overflow-hidden rounded-r-[24px]">
+          <div className="gallery-block-3 relative h-[250px] flex-1 overflow-hidden rounded-r-[12px] md:h-[629px] md:rounded-r-[24px]">
             {allImages.map((src, i) => (
               <Image
                 key={src}
@@ -156,8 +156,8 @@ const GallerySection = () => {
             ))}
           </div>
           {/* Center - Two stacked images */}
-          <div className="flex w-1/4 shrink-0 flex-col gap-[45px]">
-            <div className="gallery-block-4 relative h-[326px] overflow-hidden rounded-[24px]">
+          <div className="flex w-1/3 shrink-0 flex-col gap-[16px] md:gap-[45px] lg:w-1/4">
+            <div className="gallery-block-4 relative h-[117px] overflow-hidden rounded-[12px] md:h-[326px] md:rounded-[24px]">
               {allImages.map((src, i) => (
                 <Image
                   key={src}
@@ -169,7 +169,7 @@ const GallerySection = () => {
                 />
               ))}
             </div>
-            <div className="gallery-block-6 relative h-[326px] overflow-hidden rounded-[24px]">
+            <div className="gallery-block-6 relative h-[117px] overflow-hidden rounded-[12px] md:h-[326px] md:rounded-[24px]">
               {allImages.map((src, i) => (
                 <Image
                   key={src}
@@ -183,7 +183,7 @@ const GallerySection = () => {
             </div>
           </div>
           {/* Right - Full height, no right border radius */}
-          <div className="gallery-block-5 relative h-[629px] w-2/5 overflow-hidden rounded-l-[24px]">
+          <div className="gallery-block-5 relative h-[250px] w-2/5 overflow-hidden rounded-l-[12px] md:h-[629px] md:rounded-l-[24px]">
             {allImages.map((src, i) => (
               <Image
                 key={src}

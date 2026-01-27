@@ -119,11 +119,6 @@ html {
   scroll-behavior: smooth;
 }
 
-.hero-section {
-  background: url("/img/background/background-hero.png") left bottom/cover
-    no-repeat local;
-}
-
 .hero-mask {
   position: absolute;
   top: 0;

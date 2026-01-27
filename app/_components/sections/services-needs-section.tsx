@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import ServicesNeedsCarousel from "./services-needs-carousel"
 
 const services = [
   {
@@ -8,7 +9,7 @@ const services = [
     price: "À partir de 15 €* / séance",
     description:
       "Favorise la récupération musculaire diminue les inflammations et prépare le corps à l'enchaînement des efforts.",
-    buttonText: "Réserver une séance",
+    buttonText: "Contact",
     variant: "beige" as const,
   },
   {
@@ -47,7 +48,7 @@ const ServicesNeedsSection = () => {
   return (
     <section
       id="services-needs"
-      className="relative flex items-center justify-center overflow-hidden px-[80px] pt-[192px] pb-[64px]"
+      className="relative flex items-center justify-center overflow-hidden px-0 pt-[120px] pb-[48px] md:pt-[160px] md:pb-[64px] xl:pt-[192px]"
     >
       {/* Background Image */}
       <Image
@@ -55,21 +56,71 @@ const ServicesNeedsSection = () => {
         alt=""
         width={1200}
         height={600}
-        className="absolute object-contain object-bottom"
-        style={{ width: "100%", height: "auto" }}
+        className="absolute h-full w-auto object-cover object-bottom lg:h-auto lg:w-full"
       />
 
       {/* Content */}
-      <div className="relative z-10 container flex w-full max-w-[1200px] flex-col gap-[60px]">
+      <div className="relative z-10 container flex w-full max-w-[1200px] flex-col gap-[32px] md:gap-[48px] xl:gap-[60px]">
         {/* Title */}
-        <h2 className="font-outfit text-[56px] leading-[110%] font-medium text-white">
+        <h2 className="font-outfit px-[24px] text-[32px] leading-[110%] font-medium text-white md:px-[48px] md:text-[48px] xl:px-0 xl:text-[56px]">
           Selon vos besoins,
           <br />
           notre service s&apos;y adapte
         </h2>
 
-        {/* Cards */}
-        <div className="flex flex-row gap-[20px]">
+        {/* Mobile/Tablet Cards - Embla carousel */}
+        <div className="xl:hidden">
+          <ServicesNeedsCarousel />
+          <div
+            id="services-needs-cards-container"
+            className="flex items-center px-[24px] md:px-[48px]"
+          >
+            <div
+              id="services-needs-cards"
+              className="flex flex-row gap-[16px] md:gap-[20px]"
+            >
+              {services.map((service) => (
+                <div
+                  key={service.id}
+                  className={`relative h-[500px] w-[300px] shrink-0 overflow-hidden rounded-[8px] transition-colors duration-500 ease-out md:h-[450px] md:w-[calc(50vw-68px)] ${variantStyles[service.variant]}`}
+                >
+                  {/* Always visible content */}
+                  <div className="flex h-full flex-col justify-between p-[24px] md:p-[32px]">
+                    <div className="flex flex-col gap-[8px]">
+                      {/* Label */}
+                      <h3
+                        className={`font-bricolage-grotesque text-[24px] font-bold md:text-[28px] ${textStyles[service.variant]}`}
+                      >
+                        {service.label}
+                      </h3>
+                      {/* Price */}
+                      <span
+                        className={`font-outfit text-[18px] md:text-[20px] ${textStyles[service.variant]}`}
+                      >
+                        {service.price}
+                      </span>
+                    </div>
+
+                    <div className="flex flex-col gap-[24px]">
+                      {/* Description */}
+                      <p
+                        className={`font-inter text-[14px] leading-[150%] md:text-[15px] ${textStyles[service.variant]}`}
+                      >
+                        {service.description}
+                      </p>
+
+                      {/* Button */}
+                      <Button variant="secondary">{service.buttonText}</Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Cards - Original hover effect */}
+        <div className="hidden flex-row gap-[20px] xl:flex">
           {services.map((service) => (
             <div
               key={service.id}

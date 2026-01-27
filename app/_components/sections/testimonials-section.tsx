@@ -32,14 +32,23 @@ const TestimonialsSection = () => {
     <section
       id="testimonials"
       aria-labelledby="testimonials-heading"
-      className="bg-background relative overflow-hidden pt-[64px]"
+      className="bg-background relative overflow-hidden pt-[32px] md:pt-[48px] lg:pt-[64px]"
     >
       <h2 id="testimonials-heading" className="sr-only">
         Témoignages clients
       </h2>
 
-      {/* Fixed Background Text - ILS EN PARLENT */}
-      <div className="pointer-events-none absolute inset-0 bottom-0 flex -translate-x-[30px] translate-y-[10px] items-center justify-start select-none">
+      {/* Mobile/Tablet Background Text - ILS EN PARLENT (relative) */}
+      <div className="pointer-events-none px-[24px] select-none md:px-[48px] lg:hidden">
+        <span className="font-outfit text-primary text-[64px] leading-[0.95] font-medium md:text-[96px]">
+          ILS EN
+          <br />
+          PARLENT
+        </span>
+      </div>
+
+      {/* Desktop Background Text - ILS EN PARLENT (absolute) */}
+      <div className="pointer-events-none absolute inset-0 bottom-0 hidden -translate-x-[30px] translate-y-[10px] items-center justify-start select-none lg:flex">
         <span className="font-outfit text-primary text-[295px] leading-[269px] font-medium">
           ILS
           <br />

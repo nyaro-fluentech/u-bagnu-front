@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import AudiencesAnimation from "./audiences-animation"
 
 const audiences = [
   {
@@ -21,7 +22,7 @@ const audiences = [
   },
   {
     title: "BIEN-ÊTRE ET MENTAL",
-    subtitle: "Retrouvez l’équilibre",
+    subtitle: "Retrouvez l'équilibre",
     description:
       "Réduisez le stress, améliorez la récupération globale et le bien-être corporel.",
     image: "/img/audiences/wellbeing.jpg",
@@ -30,66 +31,131 @@ const audiences = [
 
 const AudiencesSection = () => {
   return (
-    <section id="audiences" className="bg-[#E8E8E8] px-[122px] py-[64px]">
-      <div className="mx-auto flex w-fit flex-col items-center gap-[45px]">
-        <h2 className="w-full text-[72px] leading-[100%] font-medium text-[#2E2E2E]">
+    <section
+      id="audiences"
+      className="bg-[#E8E8E8] px-[24px] py-[48px] md:px-[48px] md:py-[64px] lg:px-[122px]"
+    >
+      <AudiencesAnimation />
+      <div className="mx-auto flex w-full flex-col items-center gap-[32px] md:gap-[45px] lg:w-fit">
+        <h2 className="w-full text-[32px] leading-[110%] font-medium text-[#2E2E2E] md:text-[56px] lg:text-[72px] lg:leading-[100%]">
           Une récupération adaptée
           <br />à chaque pratique
         </h2>
-        <div className="relative flex w-fit flex-col items-start justify-center gap-[20px] md:flex-row">
-          {audiences.map((audience) => (
+        <div className="relative flex w-full flex-col items-start justify-center md:gap-[20px] lg:grid lg:w-fit lg:grid-cols-2 lg:flex-row xl:flex">
+          {audiences.map((audience, index) => (
             <div
               key={audience.title}
-              className="group relative h-[517px] min-w-[387px] flex-1 cursor-pointer overflow-hidden rounded-[8px]"
+              data-audience-card={index}
+              className={`group relative h-[400px] w-full cursor-pointer overflow-hidden rounded-[8px] md:h-[450px] lg:h-[517px] lg:min-w-[387px] lg:flex-1 ${index > 0 ? "-mt-[16px] md:mt-0" : ""} ${index === 2 ? "lg:col-span-2 lg:mx-auto xl:max-w-none" : ""}`}
             >
+              {/* Image with mobile grayscale effect (controlled by JS) and tablet/desktop hover */}
               <Image
                 src={audience.image}
                 alt={audience.title}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                data-audience-image
+                className="object-cover brightness-75 grayscale transition-all duration-300 md:brightness-100 md:grayscale-0 md:group-hover:scale-105"
               />
-              {/* Background gradient mask */}
+
+              {/* Dark overlay for mobile default state (controlled by JS) */}
+              <div
+                data-audience-overlay
+                className="absolute inset-0 bg-black/30 opacity-100 transition-opacity duration-300 md:hidden"
+              />
+
+              {/* Blue overlay for mobile active state (controlled by JS) */}
+              <div
+                data-audience-blue-overlay
+                className="absolute inset-0 bg-[#2954A4A6] opacity-0 transition-opacity duration-300 md:hidden"
+              />
+
+              {/* Background gradient mask (tablet/desktop only) */}
               {audience.gradient && (
                 <div
-                  className="absolute inset-0"
+                  className="absolute inset-0 hidden md:block"
                   style={{ background: audience.gradient }}
                 />
               )}
-              {/* Blue overlay on hover */}
-              <div className="absolute inset-0 bg-[#2954A4A6] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-              {/* Default state content */}
-              <div className="absolute inset-0 flex flex-col p-[56px] px-[32px] transition-opacity duration-300 group-hover:opacity-0">
+              {/* Blue overlay on hover (tablet/desktop only) */}
+              <div className="absolute inset-0 hidden bg-[#2954A4A6] opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:block" />
+
+              {/* Mobile default content - title only (controlled by JS) */}
+              <div
+                data-audience-content-default
+                className="absolute inset-0 flex flex-col p-[32px] opacity-100 transition-opacity duration-300 md:hidden"
+              >
                 <div className="flex flex-col gap-0 text-white">
-                  <h3 className="font-bricolage-grotesque text-[32px] uppercase">
+                  <h3 className="font-bricolage-grotesque text-[24px] uppercase">
                     {audience.title}
                   </h3>
-                  <p className="font-bricolage-grotesque mt-0 pt-0 text-[24px] whitespace-break-spaces">
+                  <p className="font-bricolage-grotesque mt-0 pt-0 text-[18px] whitespace-break-spaces">
                     {audience.title2}
                   </p>
                 </div>
               </div>
 
-              {/* Hover state content */}
-              <div className="absolute inset-0 flex flex-col justify-between p-[56px] px-[32px] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              {/* Mobile active content - with description (controlled by JS) */}
+              <div
+                data-audience-content-active
+                className="absolute inset-0 flex flex-col justify-between p-[32px] opacity-0 transition-opacity duration-300 md:hidden"
+              >
                 <div className="flex flex-col gap-0 text-white">
-                  <h3 className="font-bricolage-grotesque text-[32px] uppercase">
+                  <h3 className="font-bricolage-grotesque text-[24px] uppercase">
                     {audience.title}
                   </h3>
-                  <p className="font-bricolage-grotesque mt-0 pt-0 text-[24px] whitespace-break-spaces">
+                  <p className="font-bricolage-grotesque mt-0 pt-0 text-[18px] whitespace-break-spaces">
                     {audience.title2}
                   </p>
                 </div>
-                <div className="flex flex-col gap-[16px]">
-                  <p className="text-[16px] text-white/80">
+                <div className="flex flex-col gap-[12px]">
+                  <p className="text-[14px] text-white/80">
                     {audience.subtitle}
                   </p>
-                  <p className="font-inter text-[17.8px] font-bold text-white">
+                  <p className="font-inter text-[15px] font-bold text-white">
                     {audience.description}
                   </p>
                   <Button
                     variant="secondary"
-                    className="mt-[8px] w-fit rounded-full bg-white px-[24px] py-[12px] text-[#3B5998] hover:bg-white/90"
+                    className="mt-[8px] w-fit rounded-full bg-white px-[20px] py-[10px] text-[14px] text-[#3B5998] hover:bg-white/90"
+                  >
+                    Contact
+                  </Button>
+                </div>
+              </div>
+
+              {/* Tablet/Desktop default state content - fades out on hover */}
+              <div className="absolute inset-0 hidden flex-col p-[32px] transition-opacity duration-300 group-hover:opacity-0 md:flex lg:p-[56px] lg:px-[32px]">
+                <div className="flex flex-col gap-0 text-white">
+                  <h3 className="font-bricolage-grotesque text-[24px] uppercase lg:text-[32px]">
+                    {audience.title}
+                  </h3>
+                  <p className="font-bricolage-grotesque mt-0 pt-0 text-[18px] whitespace-break-spaces lg:text-[24px]">
+                    {audience.title2}
+                  </p>
+                </div>
+              </div>
+
+              {/* Tablet/Desktop hover state content - fades in on hover */}
+              <div className="absolute inset-0 hidden flex-col justify-between p-[32px] opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:flex lg:p-[56px] lg:px-[32px]">
+                <div className="flex flex-col gap-0 text-white">
+                  <h3 className="font-bricolage-grotesque text-[24px] uppercase lg:text-[32px]">
+                    {audience.title}
+                  </h3>
+                  <p className="font-bricolage-grotesque mt-0 pt-0 text-[18px] whitespace-break-spaces lg:text-[24px]">
+                    {audience.title2}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-[12px] lg:gap-[16px]">
+                  <p className="text-[14px] text-white/80 lg:text-[16px]">
+                    {audience.subtitle}
+                  </p>
+                  <p className="font-inter text-[15px] font-bold text-white lg:text-[17.8px]">
+                    {audience.description}
+                  </p>
+                  <Button
+                    variant="secondary"
+                    className="mt-[8px] w-fit rounded-full bg-white px-[20px] py-[10px] text-[14px] text-[#3B5998] hover:bg-white/90 lg:px-[24px] lg:py-[12px]"
                   >
                     Contact
                   </Button>

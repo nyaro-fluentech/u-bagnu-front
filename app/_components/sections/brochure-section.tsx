@@ -6,17 +6,17 @@ const BrochureSection = () => {
     <section
       id="brochure"
       aria-labelledby="brochure-heading"
-      className="flex flex-col items-center justify-center bg-[#FFE8C2] px-[122px] py-[160px]"
+      className="flex flex-col items-center justify-center bg-[#FFE8C2] px-[24px] py-[48px] md:px-[48px] md:py-[80px] lg:px-[122px] lg:py-[160px]"
       data-hide-header
       data-numero="7"
     >
       <BrochureAnimation />
 
       {/* Main heading */}
-      <div className="flex max-w-[1196px] flex-col gap-[64px]">
+      <div className="flex max-w-[1196px] flex-col gap-[32px] md:gap-[48px] lg:gap-[64px]">
         <h2
           id="brochure-heading"
-          className="font-outfit text-[64px] leading-[80px] font-medium"
+          className="font-outfit text-[28px] leading-[120%] font-medium md:text-[40px] lg:text-[64px] lg:leading-[80px]"
         >
           <span data-animate-line className="text-primary">
             Vous êtes unique.
@@ -33,7 +33,7 @@ const BrochureSection = () => {
 
         {/* Form section */}
         <div className="flex flex-col gap-[9px]">
-          <p className="font-outfit ml-[41px] text-[24px] font-medium text-[#000000]">
+          <p className="font-outfit text-[16px] font-medium text-[#000000] md:text-[18px] lg:ml-[41px] lg:text-[24px]">
             Recevez notre brochure gratuitement afin de voir l&apos;offre qui
             vous convient
           </p>

@@ -116,11 +116,44 @@ const TestimonialsCarousel = ({ testimonials }: TestimonialsCarouselProps) => {
       data-hide-header
       data-numero="6"
     >
-      <div className="overflow-hidden" ref={emblaRef}>
+      <div className="relative overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="min-w-0 flex-[0_0_100%]">
-              <div className="flex h-full items-center justify-center px-[122px]">
+            <div
+              key={testimonial.id}
+              className="max-auto flex min-w-0 flex-[0_0_100%] justify-center"
+            >
+              {/* Mobile/Tablet Layout */}
+              <div className="relative flex px-[24px] sm:items-end md:min-h-[500px] md:px-[48px] lg:hidden">
+                {/* Image - absolute positioned */}
+                <div className="relative w-[50%] md:h-[480px]">
+                  <Image
+                    src={testimonial.image}
+                    alt={`Portrait de ${testimonial.name}`}
+                    fill
+                    className="object-contain object-bottom"
+                  />
+                </div>
+
+                {/* Testimonial Content - positioned to the right */}
+                <div className="ml-auto flex flex-1 flex-col justify-end gap-[8px] py-[16px] md:justify-center md:gap-[12px] md:py-[24px] md:pb-[64px]">
+                  <div className="flex flex-col gap-[2px] md:gap-[4px]">
+                    <h3 className="font-inter text-[18px] font-bold md:text-[24px]">
+                      {testimonial.name}
+                    </h3>
+                    <p className="font-inter text-[11px] italic md:text-[14px]">
+                      {testimonial.title}
+                    </p>
+                  </div>
+
+                  <blockquote className="font-inter text-[12px] leading-[150%] md:text-[15px]">
+                    &laquo; {testimonial.quote} &raquo;
+                  </blockquote>
+                </div>
+              </div>
+
+              {/* Desktop Layout */}
+              <div className="hidden h-full items-center justify-center px-[122px] lg:flex">
                 {/* Content wrapper */}
                 <div className="flex w-full max-w-[1196px] items-start justify-center gap-[37px]">
                   {/* Image */}

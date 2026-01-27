@@ -26,7 +26,7 @@ const Logo = ({ variant = "row" }: LogoProps) => {
         alt="U Bagnu"
         width={135}
         height={22}
-        className={variant === "row" ? "mb-[4px]" : ""}
+        className={variant === "row" ? "mb-[4px]" : "w-[51px]"}
       />
     </div>
   )

@@ -3,11 +3,11 @@ import Link from "next/link"
 
 const Footer = () => {
   return (
-    <footer className="bg-background flex flex-col gap-[54px] px-[122px] py-[108px]">
+    <footer className="bg-background flex flex-col gap-[32px] px-[24px] py-[48px] md:px-[48px] md:py-[64px] lg:gap-[54px] lg:px-[122px] lg:py-[108px]">
       {/* Main content */}
-      <div className="flex justify-between border-b border-[#000000] pb-[59px]">
-        {/* Left - Logo and tagline */}
-        <div className="flex flex-col gap-[24px]">
+      <div className="flex flex-col gap-[32px] border-b border-[#000000] pb-[32px] lg:flex-row lg:justify-between lg:gap-0 lg:pb-[59px]">
+        {/* Logo and tagline */}
+        <div className="flex flex-col gap-[16px] lg:gap-[24px]">
           <Logo />
           <p className="font-inter text-[16px]">
             Récupération & bien-être.
@@ -15,21 +15,21 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Center - Contact */}
-        <div className="flex flex-col gap-[4px]">
-          <h3 className="font-bricolage-grotesque text-[24px] font-semibold">
+        {/* Contact */}
+        <div className="flex flex-col gap-[8px] lg:gap-[4px]">
+          <h3 className="font-bricolage-grotesque text-[28px] font-semibold md:text-[24px] lg:text-[24px]">
             Contact
           </h3>
 
           <div className="flex flex-col gap-[16px]">
             {/* Contact 1 */}
             <div className="flex flex-col">
-              <span className="font-inter text-[12px] font-semibold text-[#2E2E2E]">
+              <span className="font-inter text-[14px] font-semibold text-[#2E2E2E] lg:text-[12px]">
                 Jean-Laurent GERONIMI
               </span>
               <Link
                 href="tel:0634523558"
-                className="font-inter text-[12px] font-bold text-[#2E2E2E] hover:underline"
+                className="font-inter text-[16px] font-bold text-[#2E2E2E] hover:underline lg:text-[12px]"
               >
                 06.34.52.35.58
               </Link>
@@ -37,12 +37,12 @@ const Footer = () => {
 
             {/* Contact 2 */}
             <div className="flex flex-col">
-              <span className="font-inter text-[12px] font-semibold text-[#2E2E2E]">
+              <span className="font-inter text-[14px] font-semibold text-[#2E2E2E] lg:text-[12px]">
                 Gilles Palmesani
               </span>
               <Link
                 href="tel:0612270711"
-                className="font-inter text-[12px] font-bold text-[#2E2E2E] hover:underline"
+                className="font-inter text-[16px] font-bold text-[#2E2E2E] hover:underline lg:text-[12px]"
               >
                 06.12.27.07.11
               </Link>
@@ -50,12 +50,12 @@ const Footer = () => {
 
             {/* Email */}
             <div className="flex flex-col">
-              <span className="font-inter text-[12px] font-semibold text-[#2E2E2E]">
+              <span className="font-inter text-[14px] font-semibold text-[#2E2E2E] lg:text-[12px]">
                 Email
               </span>
               <Link
                 href="mailto:ubagnu.corsica@gmail.com"
-                className="font-inter text-[12px] font-semibold text-[#2E2E2E] underline hover:no-underline"
+                className="font-inter text-[14px] font-semibold text-[#2E2E2E] underline hover:no-underline lg:text-[12px]"
               >
                 ubagnu.corsica@gmail.com
               </Link>
@@ -63,13 +63,13 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Right - Address */}
-        <div className="flex flex-col gap-[4px]">
-          <h3 className="font-bricolage-grotesque text-[24px] font-semibold">
+        {/* Address */}
+        <div className="flex flex-col gap-[8px] lg:gap-[4px]">
+          <h3 className="font-bricolage-grotesque text-[28px] font-semibold md:text-[24px] lg:text-[24px]">
             Adresse
           </h3>
 
-          <address className="font-inter text-[12px] leading-[150%] font-semibold text-[#2E2E2E] not-italic">
+          <address className="font-inter text-[14px] leading-[150%] font-semibold text-[#2E2E2E] not-italic lg:text-[12px]">
             Z.I Erbajolo Lotissement Restituta
             <br />
             20600 Furiani

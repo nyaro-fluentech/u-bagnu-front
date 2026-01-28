@@ -19,7 +19,9 @@ const ServicesScrollAnimation = ({
     typeof window !== "undefined" ? window.innerWidth : 0
   )
   const [isCarouselMode, setIsCarouselMode] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth < DESKTOP_BREAKPOINT : false
+    typeof window !== "undefined"
+      ? window.innerWidth < DESKTOP_BREAKPOINT
+      : false
   )
 
   // Track window width changes to refresh animation
@@ -50,14 +52,15 @@ const ServicesScrollAnimation = ({
 
     const cardWidth = 500
     const gap = 24
+    const endPause = 300 // Extra scroll distance for pause at end
     const totalCardsWidth = cardCount * cardWidth + (cardCount - 1) * gap
     const scrollDistance = Math.max(
       totalCardsWidth - window.innerWidth + 244,
       0
     )
 
-    // Section height = viewport height + scroll distance (1:1 ratio for fluid feel)
-    const requiredHeight = window.innerHeight + scrollDistance
+    // Section height = viewport height + scroll distance + end pause
+    const requiredHeight = window.innerHeight + scrollDistance + endPause
     section.style.height = `${requiredHeight}px`
 
     return () => {
@@ -77,6 +80,7 @@ const ServicesScrollAnimation = ({
 
     const cardWidth = 500
     const gap = 24
+    const endPause = 300 // Must match the value in useLayoutEffect
     const totalCardsWidth = cardCount * cardWidth + (cardCount - 1) * gap
     const scrollDistance = Math.max(
       totalCardsWidth - window.innerWidth + 244,
@@ -87,6 +91,7 @@ const ServicesScrollAnimation = ({
     gsap.set(cards, { x: 0 })
 
     const ctx = gsap.context(() => {
+      // Pin the section for the entire scroll distance
       ScrollTrigger.create({
         trigger: container,
         start: "center center",
@@ -94,6 +99,15 @@ const ServicesScrollAnimation = ({
         end: "bottom bottom",
         pin: true,
         pinSpacing: false,
+        invalidateOnRefresh: true,
+      })
+
+      // Animate cards - ends earlier to create pause at end
+      ScrollTrigger.create({
+        trigger: container,
+        start: "center center",
+        endTrigger: section,
+        end: `bottom bottom+=${endPause}`,
         scrub: 1,
         invalidateOnRefresh: true,
         animation: gsap.to(cards, {

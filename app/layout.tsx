@@ -3,6 +3,7 @@ import { Outfit, Bricolage_Grotesque } from "next/font/google"
 import "./globals.css"
 import Header from "./_components/header"
 import Footer from "./_components/footer"
+import ScrollAnimation from "./_components/scroll-animation"
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -129,6 +130,7 @@ export default function RootLayout({
         className={`${outfit.variable} ${bricolageGrotesque.variable} antialiased`}
       >
         <Header />
+        <ScrollAnimation />
         {children}
         <Footer />
       </body>

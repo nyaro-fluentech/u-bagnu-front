@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import HeroAnimation from "./hero-animation"
+
+const backgrounds = [
+  "/img/background/background-1.png",
+  "/img/background/background-2.png",
+  "/img/background/background-3.png",
+]
 
 const HeroSection = () => {
   return (
@@ -7,20 +14,27 @@ const HeroSection = () => {
       id="hero"
       className="relative flex min-h-screen flex-col justify-between gap-[45px] px-[24px] py-[64px] md:px-[48px] lg:px-[122px]"
     >
-      {/* Background Image */}
-      <Image
-        src="/img/background/background-hero.png"
-        alt=""
-        fill
-        className="object-cover object-[75%_50%] lg:object-right"
-        sizes="100vw"
-      />
+      <HeroAnimation />
+      {/* Background Images with Fade Effect */}
+      {backgrounds.map((src, index) => (
+        <Image
+          key={src}
+          src={src}
+          alt=""
+          fill
+          className={`hero-bg-${index} object-cover object-[75%_50%] lg:object-right ${
+            index === 0 ? "opacity-100" : "opacity-0"
+          }`}
+          sizes="100vw"
+          priority={index === 0}
+        />
+      ))}
 
       <div className="hero-mask" />
       <div className="relative z-2 flex flex-col gap-[32px] pt-[80px] md:gap-[40px] md:pt-[120px] lg:gap-[45px] lg:pt-[160px]">
         <div className="flex h-[526px] flex-col justify-between gap-[42px] text-white md:h-auto md:gap-[45px]">
           <h1 className="text-[48px] leading-[110%] font-medium md:text-[72px] lg:text-[96px] lg:leading-[99px]">
-            Bains immersifs,
+            Bains froids,
             <br /> Pressothérapie
             <br /> & Sauna
           </h1>

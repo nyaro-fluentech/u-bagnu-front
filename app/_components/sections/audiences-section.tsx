@@ -37,10 +37,12 @@ const AudiencesSection = () => {
     >
       <AudiencesAnimation />
       <div className="mx-auto flex w-full flex-col items-center gap-[32px] md:gap-[45px] lg:w-fit">
-        <h2 className="w-full text-[32px] leading-[110%] font-medium text-[#2E2E2E] md:text-[56px] lg:text-[72px] lg:leading-[100%]">
-          Une récupération adaptée
-          <br />à chaque pratique
-        </h2>
+        <div className="split-container w-full">
+          <h2 className="split w-full text-[32px] leading-[110%] font-medium text-[#2E2E2E] md:text-[56px] lg:text-[72px] lg:leading-[100%]">
+            Une récupération adaptée
+            <br />à chaque pratique
+          </h2>
+        </div>
         <div className="relative flex w-full flex-col items-start justify-center md:gap-[20px] lg:grid lg:w-fit lg:grid-cols-2 lg:flex-row xl:flex">
           {audiences.map((audience, index) => (
             <div

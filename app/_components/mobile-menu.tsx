@@ -113,7 +113,7 @@ const MobileMenu = () => {
         createPortal(
           <button
             onClick={toggleMenu}
-            className={`fixed z-[101] flex h-[40px] w-[40px] flex-col items-center justify-center gap-[6px] transition-all duration-300 ease-out lg:hidden ${
+            className={`fixed z-101 flex h-[40px] w-[40px] flex-col items-center justify-center gap-[6px] transition-all duration-300 ease-in-out lg:hidden ${
               isOpen
                 ? "pointer-events-auto scale-100 opacity-100"
                 : "pointer-events-none scale-90 opacity-0"

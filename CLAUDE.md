@@ -10,6 +10,10 @@ pnpm build        # Production build (outputs standalone)
 pnpm lint         # Run ESLint
 ```
 
+## Context manager
+
+Use brv curate command to curate essential contexts of this project's unit testing strategy. Make sure that unit tests run fast and run completely in memory.
+
 ## Architecture
 
 This is a Next.js 16 App Router project with React 19, TypeScript, and Tailwind CSS v4.

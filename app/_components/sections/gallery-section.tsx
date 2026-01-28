@@ -131,7 +131,7 @@ const GallerySection = () => {
               {[...Array(4)].map((_, i) => (
                 <span
                   key={i}
-                  className="marquee-text font-outfit text-primary mx-[20px] text-[64px] font-medium uppercase md:mx-[40px] md:text-[120px]"
+                  className="marquee-text font-outfit text-primary mx-[20px] text-[64px] font-medium uppercase md:mx-[40px] md:text-[150px]"
                 >
                   Récupération sportive, relaxation et bien-être
                 </span>

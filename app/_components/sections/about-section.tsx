@@ -9,9 +9,11 @@ const AboutSection = () => {
       {/* Mobile/Tablet Layout */}
       <div className="flex flex-col gap-[24px] md:gap-[32px] lg:hidden">
         {/* Title */}
-        <h2 className="font-outfit text-[32px] leading-[110%] font-medium md:text-[48px]">
-          Qui sommes-nous?
-        </h2>
+        <div className="split-container">
+          <h2 className="split font-outfit text-[32px] leading-[110%] font-medium md:text-[48px]">
+            Qui sommes-nous?
+          </h2>
+        </div>
 
         {/* First paragraph */}
         <p className="font-inter text-[16px] leading-[150%] md:text-[18px]">
@@ -65,9 +67,11 @@ const AboutSection = () => {
       {/* Desktop Layout */}
       <div className="max-auto relative hidden max-w-[1200px] flex-col gap-[25px] pt-[80px] pb-[160px] lg:flex">
         {/* Title */}
-        <h2 className="font-outfit text-[72px] leading-[99px] font-medium">
-          Qui sommes-nous?
-        </h2>
+        <div className="split-container">
+          <h2 className="split font-outfit text-[72px] leading-[99px] font-medium">
+            Qui sommes-nous?
+          </h2>
+        </div>
 
         {/* Content row */}
         <div className="flex flex-row items-start gap-[73px]">

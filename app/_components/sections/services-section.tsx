@@ -195,11 +195,13 @@ const ServicesSection = () => {
 
       {/* Header */}
       <div className="px-[24px] pt-[40px] md:px-[48px] md:pt-[60px] xl:px-[122px] xl:pt-[80px]">
-        <h2 className="text-[32px] leading-[110%] font-medium text-white md:text-[56px] xl:text-[72px] xl:leading-[100%]">
-          Nos prestations
-          <br />
-          sont UNIQUES
-        </h2>
+        <div className="split-container">
+          <h2 className="split text-[32px] leading-[110%] font-medium text-white md:text-[56px] xl:text-[72px] xl:leading-[100%]">
+            Nos prestations
+            <br />
+            sont UNIQUES
+          </h2>
+        </div>
       </div>
 
       {/* Cards container - Embla on mobile/tablet, GSAP on desktop */}

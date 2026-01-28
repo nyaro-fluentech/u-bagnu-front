@@ -72,11 +72,13 @@ const ServicesNeedsSection = () => {
       {/* Content */}
       <div className="relative z-10 container flex w-full max-w-[1200px] flex-col gap-[32px] md:gap-[48px] xl:gap-[60px]">
         {/* Title */}
-        <h2 className="font-outfit px-[24px] text-[32px] leading-[110%] font-medium text-white md:px-[48px] md:text-[48px] xl:px-0 xl:text-[56px]">
-          Selon vos besoins,
-          <br />
-          notre service s&apos;y adapte
-        </h2>
+        <div className="split-container px-[24px] md:px-[48px] xl:px-0">
+          <h2 className="split font-outfit text-[32px] leading-[110%] font-medium text-white md:text-[48px] xl:text-[56px]">
+            Selon vos besoins,
+            <br />
+            notre service s&apos;y adapte
+          </h2>
+        </div>
 
         {/* Mobile/Tablet Cards - Embla carousel */}
         <div className="xl:hidden">

@@ -37,11 +37,13 @@ const ServicesDetailSection = () => {
       <div className="flex flex-col gap-[24px] xl:hidden">
         {/* Header */}
         <div className="flex flex-col gap-[12px]">
-          <h2 className="font-outfit text-[32px] leading-[110%] font-medium md:text-[48px]">
-            Des services
-            <br />
-            pensés pour vous
-          </h2>
+          <div className="split-container">
+            <h2 className="split font-outfit text-[32px] leading-[110%] font-medium md:text-[48px]">
+              Des services
+              <br />
+              pensés pour vous
+            </h2>
+          </div>
           <p className="font-inter text-[14px] md:text-[16px]">
             Chaque parcours mérite une attention unique et personnalisée.
           </p>
@@ -99,11 +101,13 @@ const ServicesDetailSection = () => {
           <div className="flex flex-col gap-[50px]">
             {/* Main heading */}
             <div className="flex flex-col gap-[20px]">
-              <h2 className="font-outfit text-[72px] leading-[100%] font-medium">
-                Des services
-                <br />
-                pensés pour vous
-              </h2>
+              <div className="split-container">
+                <h2 className="split font-outfit text-[72px] leading-[100%] font-medium">
+                  Des services
+                  <br />
+                  pensés pour vous
+                </h2>
+              </div>
               <p className="font-inter text-[16px]">
                 Chaque parcours mérite une attention unique et personnalisée.
               </p>

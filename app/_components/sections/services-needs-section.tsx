@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import ServicesNeedsCarousel from "./services-needs-carousel"
+import ServicesNeedsAnimation from "./services-needs-animation"
 
 const services = [
   {
@@ -38,6 +39,13 @@ const variantStyles = {
   white: "bg-[#D9D9D9BF] hover:bg-[#D9D9D9]",
 }
 
+// Desktop uses JS-controlled active class instead of hover
+const desktopVariantStyles = {
+  beige: "bg-[#FFE8C2BF] [&.active]:bg-[#FFE8C2]",
+  blue: "bg-[#2954A4BF] [&.active]:bg-[#2954A4]",
+  white: "bg-[#D9D9D9BF] [&.active]:bg-[#D9D9D9]",
+}
+
 const textStyles = {
   beige: "text-[#3D3D3D]",
   blue: "text-white",
@@ -58,6 +66,8 @@ const ServicesNeedsSection = () => {
         height={600}
         className="absolute h-full w-auto object-cover object-bottom lg:h-auto lg:w-full"
       />
+
+      <ServicesNeedsAnimation />
 
       {/* Content */}
       <div className="relative z-10 container flex w-full max-w-[1200px] flex-col gap-[32px] md:gap-[48px] xl:gap-[60px]">
@@ -119,15 +129,19 @@ const ServicesNeedsSection = () => {
           </div>
         </div>
 
-        {/* Desktop Cards - Original hover effect */}
+        {/* Desktop Cards - JS-controlled active state */}
         <div className="hidden flex-row gap-[20px] xl:flex">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <div
               key={service.id}
-              className={`group relative h-[517px] flex-1 cursor-pointer overflow-hidden rounded-[8px] transition-colors duration-500 ease-out ${variantStyles[service.variant]}`}
+              data-services-needs-card={index}
+              className={`relative h-[517px] flex-1 cursor-pointer overflow-hidden rounded-[8px] transition-colors duration-500 ease-out ${desktopVariantStyles[service.variant]} ${index === 0 ? "active" : ""}`}
             >
-              {/* Content wrapper - label at bottom, moves up on hover to reveal content */}
-              <div className="absolute right-0 bottom-[80px] left-0 flex translate-y-[250px] flex-col gap-[56px] px-[48px] transition-transform duration-500 ease-out group-hover:translate-y-[30px]">
+              {/* Content wrapper - label at bottom, moves up when active */}
+              <div
+                data-services-needs-content
+                className={`absolute right-0 bottom-[80px] left-0 flex flex-col gap-[56px] px-[48px] transition-transform duration-500 ease-out ${index === 0 ? "translate-y-[30px]" : "translate-y-[250px]"}`}
+              >
                 <div>
                   {/* Label */}
                   <h3
@@ -137,14 +151,18 @@ const ServicesNeedsSection = () => {
                   </h3>
                   {/* Price */}
                   <span
-                    className={`font-outfit text-[24px] opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 ${textStyles[service.variant]}`}
+                    data-services-needs-price
+                    className={`font-outfit text-[24px] transition-opacity duration-500 ease-out ${textStyles[service.variant]} ${index === 0 ? "opacity-100" : "opacity-0"}`}
                   >
                     {service.price}
                   </span>
                 </div>
 
-                {/* Hidden content - revealed on hover */}
-                <div className="flex flex-col gap-[32px] pt-[16px] opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100">
+                {/* Hidden content - revealed when active */}
+                <div
+                  data-services-needs-details
+                  className={`flex flex-col gap-[32px] pt-[16px] transition-opacity duration-500 ease-out ${index === 0 ? "opacity-100" : "opacity-0"}`}
+                >
                   {/* Description */}
                   <p
                     className={`font-inter text-[15px] leading-[150%] ${textStyles[service.variant]}`}

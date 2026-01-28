@@ -1,34 +1,37 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef } from "react"
 
 const TABLET_BREAKPOINT = 768
 
 const AudiencesAnimation = () => {
-  const [isMobile, setIsMobile] = useState(false)
+  const isMobileRef = useRef(false)
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < TABLET_BREAKPOINT)
-    }
-
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
-
-  useEffect(() => {
-    if (!isMobile) return
-
     const cards = document.querySelectorAll<HTMLElement>("[data-audience-card]")
     if (cards.length === 0) return
 
     let currentActiveIndex: number | null = null
 
-    const setActiveCard = (index: number | null) => {
-      if (currentActiveIndex === index) return
+    const checkMobile = () => {
+      const wasMobile = isMobileRef.current
+      isMobileRef.current = window.innerWidth < TABLET_BREAKPOINT
 
+      // Reset states when switching modes
+      if (wasMobile !== isMobileRef.current) {
+        currentActiveIndex = null
+        if (isMobileRef.current) {
+          // Switched to mobile - trigger scroll check
+          handleMobileScroll()
+        } else {
+          // Switched to desktop - set first card active
+          setDesktopActiveCard(0)
+        }
+      }
+    }
+
+    const setMobileActiveCard = (index: number | null) => {
+      if (currentActiveIndex === index) return
       currentActiveIndex = index
 
       cards.forEach((card, i) => {
@@ -70,6 +73,42 @@ const AudiencesAnimation = () => {
       })
     }
 
+    const setDesktopActiveCard = (index: number) => {
+      if (currentActiveIndex === index) return
+      currentActiveIndex = index
+
+      cards.forEach((card, i) => {
+        const image = card.querySelector("[data-audience-image]")
+        const blueOverlay = card.querySelector("[data-audience-desktop-overlay]")
+        const defaultContent = card.querySelector(
+          "[data-audience-desktop-default]"
+        )
+        const activeContent = card.querySelector(
+          "[data-audience-desktop-active]"
+        )
+
+        if (i === index) {
+          // Active state
+          image?.classList.add("scale-105")
+          blueOverlay?.classList.add("opacity-100")
+          blueOverlay?.classList.remove("opacity-0")
+          defaultContent?.classList.add("opacity-0")
+          defaultContent?.classList.remove("opacity-100")
+          activeContent?.classList.add("opacity-100")
+          activeContent?.classList.remove("opacity-0")
+        } else {
+          // Default state
+          image?.classList.remove("scale-105")
+          blueOverlay?.classList.remove("opacity-100")
+          blueOverlay?.classList.add("opacity-0")
+          defaultContent?.classList.remove("opacity-0")
+          defaultContent?.classList.add("opacity-100")
+          activeContent?.classList.remove("opacity-100")
+          activeContent?.classList.add("opacity-0")
+        }
+      })
+    }
+
     const findMostVisibleCard = () => {
       const viewportCenter = window.innerHeight / 2
       let closestIndex: number | null = null
@@ -92,20 +131,50 @@ const AudiencesAnimation = () => {
       return closestIndex
     }
 
-    const handleScroll = () => {
+    const handleMobileScroll = () => {
+      if (!isMobileRef.current) return
       const mostVisibleIndex = findMostVisibleCard()
-      setActiveCard(mostVisibleIndex)
+      setMobileActiveCard(mostVisibleIndex)
     }
 
-    // Initial check
-    handleScroll()
+    // Desktop hover handlers
+    const handleMouseEnter = (index: number) => {
+      if (isMobileRef.current) return
+      setDesktopActiveCard(index)
+    }
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
+    const handleMouseLeave = () => {
+      if (isMobileRef.current) return
+      // Return to first card when not hovering any
+      setDesktopActiveCard(0)
+    }
+
+    // Attach hover listeners for desktop
+    cards.forEach((card, index) => {
+      card.addEventListener("mouseenter", () => handleMouseEnter(index))
+      card.addEventListener("mouseleave", handleMouseLeave)
+    })
+
+    // Initial setup
+    checkMobile()
+    if (isMobileRef.current) {
+      handleMobileScroll()
+    } else {
+      setDesktopActiveCard(0)
+    }
+
+    window.addEventListener("scroll", handleMobileScroll, { passive: true })
+    window.addEventListener("resize", checkMobile)
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("scroll", handleMobileScroll)
+      window.removeEventListener("resize", checkMobile)
+      cards.forEach((card, index) => {
+        card.removeEventListener("mouseenter", () => handleMouseEnter(index))
+        card.removeEventListener("mouseleave", handleMouseLeave)
+      })
     }
-  }, [isMobile])
+  }, [])
 
   return null
 }

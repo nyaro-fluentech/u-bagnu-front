@@ -7,8 +7,6 @@ const BrochureSection = () => {
       id="brochure"
       aria-labelledby="brochure-heading"
       className="flex flex-col items-center justify-center bg-[#FFE8C2] px-[24px] py-[48px] md:px-[48px] md:py-[80px] lg:px-[122px] lg:py-[160px]"
-      data-hide-header
-      data-numero="7"
     >
       <BrochureAnimation />
 

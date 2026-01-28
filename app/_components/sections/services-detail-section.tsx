@@ -30,8 +30,6 @@ const ServicesDetailSection = () => {
     <section
       id="services-detail"
       className="bg-background relative my-[48px] h-auto px-[24px] lg:my-[160px] lg:px-[122px] xl:h-[300dvh]"
-      data-hide-header
-      data-numero="2"
     >
       <ServicesDetailAnimation />
 

@@ -1,44 +1,72 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef } from "react"
 import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-gsap.registerPlugin(ScrollTrigger)
-
+const SCROLL_THRESHOLD = 50
 const TABLET_BREAKPOINT = 768
-const MOBILE_SCROLL_THRESHOLD = 50
 
 const HeaderAnimation = () => {
-  const [isMobile, setIsMobile] = useState(false)
+  const lastScrollY = useRef(0)
+  const isHidden = useRef(false)
+  const isMobileRef = useRef(false)
 
-  // Check if mobile on mount and resize
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < TABLET_BREAKPOINT)
-    }
-
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
-
-  // Mobile scroll effect - full width and no radius after scroll
-  useEffect(() => {
-    if (!isMobile) return
-
     const header = document.querySelector("#header-container")
     const headerWrapper = document.querySelector("#header-wrapper")
-    if (!header || !headerWrapper) return
+    if (!header) return
 
-    let isScrolled = false
+    const checkMobile = () => {
+      isMobileRef.current = window.innerWidth < TABLET_BREAKPOINT
+    }
+    checkMobile()
+
+    const showHeader = () => {
+      if (!isHidden.current) return
+      isHidden.current = false
+      gsap.to(header, {
+        yPercent: 0,
+        duration: 0.3,
+        ease: "power2.out",
+      })
+    }
+
+    const hideHeader = () => {
+      if (isHidden.current) return
+      isHidden.current = true
+      gsap.to(header, {
+        yPercent: -100,
+        duration: 0.3,
+        ease: "power2.out",
+      })
+    }
 
     const handleScroll = () => {
-      const scrollY = window.scrollY
+      const currentScrollY = window.scrollY
 
-      if (scrollY > MOBILE_SCROLL_THRESHOLD && !isScrolled) {
-        isScrolled = true
+      // Always show header when near top
+      if (currentScrollY <= SCROLL_THRESHOLD) {
+        showHeader()
+        // Reset mobile styles when at top
+        if (isMobileRef.current && headerWrapper) {
+          gsap.to(header, {
+            borderRadius: "0 0 24px 24px",
+            duration: 0.3,
+            ease: "power2.out",
+          })
+          gsap.to(headerWrapper, {
+            paddingLeft: 16,
+            paddingRight: 16,
+            duration: 0.3,
+            ease: "power2.out",
+          })
+        }
+        lastScrollY.current = currentScrollY
+        return
+      }
+
+      // Apply mobile styles when scrolled (mobile only)
+      if (isMobileRef.current && headerWrapper) {
         gsap.to(header, {
           borderRadius: 0,
           duration: 0.3,
@@ -50,89 +78,30 @@ const HeaderAnimation = () => {
           duration: 0.3,
           ease: "power2.out",
         })
-      } else if (scrollY <= MOBILE_SCROLL_THRESHOLD && isScrolled) {
-        isScrolled = false
-        gsap.to(header, {
-          borderRadius: "0 0 24px 24px",
-          duration: 0.3,
-          ease: "power2.out",
-        })
-        gsap.to(headerWrapper, {
-          paddingLeft: 16,
-          paddingRight: 16,
-          duration: 0.3,
-          ease: "power2.out",
-        })
       }
+
+      const scrollDelta = currentScrollY - lastScrollY.current
+
+      // Scrolling down
+      if (scrollDelta > 0) {
+        hideHeader()
+      }
+      // Scrolling up
+      else if (scrollDelta < 0) {
+        showHeader()
+      }
+
+      lastScrollY.current = currentScrollY
     }
 
     window.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("resize", checkMobile)
 
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [isMobile])
-
-  // Desktop hide/show effect
-  useEffect(() => {
-    // Don't apply hide animation on mobile
-    if (isMobile) return
-
-    const header = document.querySelector("#header-container")
-    if (!header) return
-
-    // Get all sections with data-hide-header attribute, sorted by data-numero
-    const sections = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-hide-header]")
-    ).sort((a, b) => {
-      const numA = parseInt(a.dataset.numero || "0", 10)
-      const numB = parseInt(b.dataset.numero || "0", 10)
-      return numA - numB
-    })
-
-    if (sections.length === 0) return
-
-    const firstSection = sections[0]
-    const lastSection = sections[sections.length - 1]
-
-    const showHeader = () => {
-      gsap.set(header, { pointerEvents: "auto" })
-      gsap.to(header, {
-        opacity: 1,
-        duration: 0.4,
-        ease: "power2.out",
-      })
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("resize", checkMobile)
     }
-
-    const hideHeader = () => {
-      gsap.to(header, {
-        opacity: 0,
-        duration: 0.4,
-        ease: "power2.out",
-        onComplete: () => {
-          gsap.set(header, { pointerEvents: "none" })
-        },
-      })
-    }
-
-    const ctx = gsap.context(() => {
-      // Hide header when entering first section
-      ScrollTrigger.create({
-        trigger: firstSection,
-        start: "top 120px",
-        onEnter: hideHeader,
-        onLeaveBack: showHeader,
-      })
-
-      // Show header when leaving last section
-      ScrollTrigger.create({
-        trigger: lastSection,
-        start: "bottom top",
-        onEnter: showHeader,
-        onLeaveBack: hideHeader,
-      })
-    })
-
-    return () => ctx.revert()
-  }, [isMobile])
+  }, [])
 
   return null
 }

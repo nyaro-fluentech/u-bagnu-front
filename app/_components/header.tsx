@@ -26,7 +26,7 @@ const Header = () => {
           </div>
 
           {/* Desktop nav - hidden on mobile */}
-          <div className="hidden items-center gap-[82px] md:flex">
+          <div className="hidden items-center gap-[82px] lg:flex">
             <nav>
               <ul className="font-bricolage-grotesque flex gap-[24px]">
                 <li>

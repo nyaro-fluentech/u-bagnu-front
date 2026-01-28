@@ -22,7 +22,7 @@ const HeroSection = () => {
           src={src}
           alt=""
           fill
-          className={`hero-bg-${index} object-cover object-[75%_50%] lg:object-right ${
+          className={`hero-bg-${index} object-cover object-[75%_50%] lg:object-bottom-right ${
             index === 0 ? "opacity-100" : "opacity-0"
           }`}
           sizes="100vw"

@@ -55,7 +55,7 @@ const textStyles = {
 const ServicesNeedsSection = () => {
   return (
     <section
-      id="services-needs"
+      id="offers"
       className="relative flex items-center justify-center overflow-hidden px-0 pt-[120px] pb-[48px] md:pt-[160px] md:pb-[64px] xl:pt-[192px]"
     >
       {/* Background Image */}

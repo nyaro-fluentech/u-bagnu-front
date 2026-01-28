@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-const TOTAL_SERVICES = 4
+const TOTAL_SERVICES = 3
 
 const ServicesDetailAnimation = () => {
   useEffect(() => {

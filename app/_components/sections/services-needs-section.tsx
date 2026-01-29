@@ -5,7 +5,7 @@ import ServicesNeedsCarousel from "./services-needs-carousel"
 const services = [
   {
     id: "bains",
-    label: "BAINS IMMERSIFS",
+    label: "BAINS FROIDS",
     price: "À partir de 15 €* / séance",
     description:
       "Favorise la récupération musculaire diminue les inflammations et prépare le corps à l'enchaînement des efforts.",

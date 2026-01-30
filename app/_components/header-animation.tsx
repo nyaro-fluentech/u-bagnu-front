@@ -26,7 +26,7 @@ const HeaderAnimation = () => {
       isHidden.current = false
       gsap.to(header, {
         yPercent: 0,
-        duration: 0.3,
+        duration: 0.5,
         ease: "power2.out",
       })
     }
@@ -36,7 +36,7 @@ const HeaderAnimation = () => {
       isHidden.current = true
       gsap.to(header, {
         yPercent: -100,
-        duration: 0.3,
+        duration: 0.5,
         ease: "power2.out",
       })
     }

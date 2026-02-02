@@ -6,8 +6,8 @@ import ServicesNeedsAnimation from "./services-needs-animation"
 const services = [
   {
     id: "bains",
-    label: "BAINS IMMERSIFS",
-    price: "À partir de 15 €* / séance",
+    label: "BAINS FROIDS",
+    price: "À partir de 16 €* / séance",
     description:
       "Favorise la récupération musculaire diminue les inflammations et prépare le corps à l'enchaînement des efforts.",
     buttonText: "Contact",
@@ -16,7 +16,7 @@ const services = [
   {
     id: "sauna",
     label: "SAUNA INFRAROUGE",
-    price: "À partir de 15 €* / séance",
+    price: "À partir de 16 €* / séance",
     description:
       "Relaxation profonde, récupération nerveuse et musculaire, idéal en complément des soins sportifs.",
     buttonText: "Réserver une séance",

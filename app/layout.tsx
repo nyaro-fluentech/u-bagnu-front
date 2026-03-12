@@ -4,6 +4,7 @@ import "./globals.css"
 import Header from "./_components/header"
 import Footer from "./_components/footer"
 import ScrollAnimation from "./_components/scroll-animation"
+import SectionHashTracker from "./_components/section-hash-tracker"
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -131,6 +132,7 @@ export default function RootLayout({
       >
         <Header />
         <ScrollAnimation />
+        <SectionHashTracker />
         {children}
         <Footer />
       </body>

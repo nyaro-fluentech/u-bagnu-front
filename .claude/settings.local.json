@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd /d/Works/u bagnu/u-bagnu-front)",
+      "Bash(brv curate:*)"
+    ]
+  }
+}

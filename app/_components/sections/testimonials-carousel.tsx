@@ -113,8 +113,6 @@ const TestimonialsCarousel = ({ testimonials }: TestimonialsCarouselProps) => {
       onMouseLeave={handleMouseLeave}
       onFocus={handleFocusIn}
       onBlur={handleFocusOut}
-      data-hide-header
-      data-numero="6"
     >
       <div className="relative overflow-hidden" ref={emblaRef}>
         <div className="flex">

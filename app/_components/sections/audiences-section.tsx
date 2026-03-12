@@ -37,10 +37,12 @@ const AudiencesSection = () => {
     >
       <AudiencesAnimation />
       <div className="mx-auto flex w-full flex-col items-center gap-[32px] md:gap-[45px] lg:w-fit">
-        <h2 className="w-full text-[32px] leading-[110%] font-medium text-[#2E2E2E] md:text-[56px] lg:text-[72px] lg:leading-[100%]">
-          Une récupération adaptée
-          <br />à chaque pratique
-        </h2>
+        <div className="split-container w-full">
+          <h2 className="split w-full text-[32px] leading-[110%] font-medium text-[#2E2E2E] md:text-[56px] lg:text-[72px] lg:leading-[100%]">
+            Une récupération adaptée
+            <br />à chaque pratique
+          </h2>
+        </div>
         <div className="relative flex w-full flex-col items-start justify-center md:gap-[20px] lg:grid lg:w-fit lg:grid-cols-2 lg:flex-row xl:flex">
           {audiences.map((audience, index) => (
             <div
@@ -48,13 +50,13 @@ const AudiencesSection = () => {
               data-audience-card={index}
               className={`group relative h-[400px] w-full cursor-pointer overflow-hidden rounded-[8px] md:h-[450px] lg:h-[517px] lg:min-w-[387px] lg:flex-1 ${index > 0 ? "-mt-[16px] md:mt-0" : ""} ${index === 2 ? "lg:col-span-2 lg:mx-auto xl:max-w-none" : ""}`}
             >
-              {/* Image with mobile grayscale effect (controlled by JS) and tablet/desktop hover */}
+              {/* Image with mobile grayscale effect (controlled by JS) and tablet/desktop scale (controlled by JS) */}
               <Image
                 src={audience.image}
                 alt={audience.title}
                 fill
                 data-audience-image
-                className="object-cover brightness-75 grayscale transition-all duration-300 md:brightness-100 md:grayscale-0 md:group-hover:scale-105"
+                className="object-cover brightness-75 grayscale transition-all duration-300 md:brightness-100 md:grayscale-0"
               />
 
               {/* Dark overlay for mobile default state (controlled by JS) */}
@@ -77,8 +79,11 @@ const AudiencesSection = () => {
                 />
               )}
 
-              {/* Blue overlay on hover (tablet/desktop only) */}
-              <div className="absolute inset-0 hidden bg-[#2954A4A6] opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:block" />
+              {/* Blue overlay (tablet/desktop only) - controlled by JS */}
+              <div
+                data-audience-desktop-overlay
+                className={`absolute inset-0 hidden bg-[#2954A4A6] transition-opacity duration-300 md:block ${index === 0 ? "opacity-100" : "opacity-0"}`}
+              />
 
               {/* Mobile default content - title only (controlled by JS) */}
               <div
@@ -124,8 +129,11 @@ const AudiencesSection = () => {
                 </div>
               </div>
 
-              {/* Tablet/Desktop default state content - fades out on hover */}
-              <div className="absolute inset-0 hidden flex-col p-[32px] transition-opacity duration-300 group-hover:opacity-0 md:flex lg:p-[56px] lg:px-[32px]">
+              {/* Tablet/Desktop default state content - controlled by JS */}
+              <div
+                data-audience-desktop-default
+                className={`absolute inset-0 hidden flex-col p-[32px] transition-opacity duration-300 md:flex lg:p-[56px] lg:px-[32px] ${index === 0 ? "opacity-0" : "opacity-100"}`}
+              >
                 <div className="flex flex-col gap-0 text-white">
                   <h3 className="font-bricolage-grotesque text-[24px] uppercase lg:text-[32px]">
                     {audience.title}
@@ -136,8 +144,11 @@ const AudiencesSection = () => {
                 </div>
               </div>
 
-              {/* Tablet/Desktop hover state content - fades in on hover */}
-              <div className="absolute inset-0 hidden flex-col justify-between p-[32px] opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:flex lg:p-[56px] lg:px-[32px]">
+              {/* Tablet/Desktop active state content - controlled by JS */}
+              <div
+                data-audience-desktop-active
+                className={`absolute inset-0 hidden flex-col justify-between p-[32px] transition-opacity duration-300 md:flex lg:p-[56px] lg:px-[32px] ${index === 0 ? "opacity-100" : "opacity-0"}`}
+              >
                 <div className="flex flex-col gap-0 text-white">
                   <h3 className="font-bricolage-grotesque text-[24px] uppercase lg:text-[32px]">
                     {audience.title}

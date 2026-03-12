@@ -59,7 +59,10 @@ const HeroSection = () => {
           <Button variant="secondary" className="w-full lg:w-auto">
             Contact
           </Button>
-          <Button variant="outline" className="w-full lg:w-auto">
+          <Button
+            variant="outline"
+            className="w-full max-sm:backdrop-blur-lg lg:w-auto"
+          >
             Réserver votre séance
           </Button>
         </div>

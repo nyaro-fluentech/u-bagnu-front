@@ -165,7 +165,10 @@ const ServiceCard = ({ service }: { service: (typeof services)[0] }) => {
         {service.services && (
           <div className="mt-[24px] flex flex-col gap-[6px] md:mt-[32px] md:gap-[6px] xl:mt-[40px] xl:gap-[8px]">
             {service.services.map((s) => (
-              <span key={s} className="text-[18px] font-bold md:text-[20px] xl:text-[24px]">
+              <span
+                key={s}
+                className="text-[18px] font-bold md:text-[20px] xl:text-[24px]"
+              >
                 {s}
               </span>
             ))}
@@ -174,7 +177,9 @@ const ServiceCard = ({ service }: { service: (typeof services)[0] }) => {
       </div>
 
       {/* Footer */}
-      <div className="text-[12px] md:text-[13px] xl:text-[14px]">{service.footer}</div>
+      <div className="text-[12px] md:text-[13px] xl:text-[14px]">
+        {service.footer}
+      </div>
     </div>
   )
 }
@@ -184,19 +189,19 @@ const ServicesSection = () => {
     <section
       id="services"
       className="flex flex-col gap-[32px] overflow-x-clip bg-[#2954A4] pt-[48px] pb-[48px] md:gap-[48px] xl:gap-[64px] xl:pt-[64px] xl:pb-0"
-      data-hide-header
-      data-numero="1"
     >
       {/* Client-side animation handler */}
       <ServicesScrollAnimation cardCount={services.length} />
 
       {/* Header */}
       <div className="px-[24px] pt-[40px] md:px-[48px] md:pt-[60px] xl:px-[122px] xl:pt-[80px]">
-        <h2 className="text-[32px] leading-[110%] font-medium text-white md:text-[56px] xl:text-[72px] xl:leading-[100%]">
-          Nos prestations
-          <br />
-          sont UNIQUES
-        </h2>
+        <div className="split-container">
+          <h2 className="split text-[32px] leading-[110%] font-medium text-white md:text-[56px] xl:text-[72px] xl:leading-[100%]">
+            Nos prestations
+            <br />
+            sont UNIQUES
+          </h2>
+        </div>
       </div>
 
       {/* Cards container - Embla on mobile/tablet, GSAP on desktop */}

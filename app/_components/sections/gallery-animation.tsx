@@ -24,8 +24,8 @@ const GalleryAnimation = () => {
     let brakeTween: gsap.core.Tween | null = null
     let handleScroll: (() => void) | null = null
 
-    const DEFAULT_SPEED = 2
-    const SCROLL_SPEED = 10
+    const DEFAULT_SPEED = 1
+    const SCROLL_SPEED = 3
 
     // Small delay to ensure DOM is mounted
     const initTimeout = setTimeout(() => {

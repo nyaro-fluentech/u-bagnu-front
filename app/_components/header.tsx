@@ -21,12 +21,14 @@ const Header = () => {
         >
           {/* Top bar */}
           <div className="flex items-center justify-between">
-            <div className="md:hidden">
-              <Logo variant="col" />
-            </div>
-            <div className="hidden md:block">
-              <Logo variant="row" />
-            </div>
+            <Link href="/">
+              <div className="md:hidden">
+                <Logo variant="col" />
+              </div>
+              <div className="hidden md:block">
+                <Logo variant="row" />
+              </div>
+            </Link>
 
             {/* Right side */}
             <div className="flex items-center gap-[82px]">
@@ -34,13 +36,13 @@ const Header = () => {
               <nav id="header-nav-links" className="hidden lg:block">
                 <ul className="font-bricolage-grotesque flex gap-[24px]">
                   <li>
-                    <Link href="#services">Services</Link>
+                    <Link href="/#services">Services</Link>
                   </li>
                   <li>
-                    <Link href="#offers">Offres</Link>
+                    <Link href="/#offers">Offres</Link>
                   </li>
                   <li>
-                    <Link href="#about">À propos</Link>
+                    <Link href="/#about">À propos</Link>
                   </li>
                 </ul>
               </nav>

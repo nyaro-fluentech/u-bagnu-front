@@ -21,6 +21,7 @@ const HeroSection = () => {
           key={src}
           src={src}
           alt=""
+          role="presentation"
           fill
           className={`hero-bg-${index} object-cover object-[75%_50%] lg:object-bottom-right ${
             index === 0 ? "opacity-100" : "opacity-0"
@@ -66,29 +67,26 @@ const HeroSection = () => {
             Réserver votre séance
           </Button>
         </div>
-        {/* Découvrir button - hidden on mobile/tablet */}
-        <Button variant="ghost" className="hidden lg:flex">
-          Découvrir
+        {/* Scroll hint - hidden on mobile/tablet */}
+        <span className="font-outfit hidden items-center gap-2 text-[14px] text-white/70 lg:flex">
+          Scrollez pour découvrir
           <svg
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
             <path
-              d="M9.17116 12.052L7.75716 13.466L12.0002 17.71L16.2432 13.467L14.8282 12.053L13.0002 13.88V6.34302H11.0002V13.88L9.17116 12.052Z"
-              fill="white"
-            />
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M4.222 19.778C8.518 24.074 15.482 24.074 19.778 19.778C24.074 15.482 24.074 8.518 19.778 4.222C15.482 -0.0739994 8.518 -0.0739994 4.222 4.222C-0.0739994 8.518 -0.0739994 15.482 4.222 19.778ZM5.636 18.364C7.32384 20.0518 9.61304 21.0001 12 21.0001C14.387 21.0001 16.6762 20.0518 18.364 18.364C20.0518 16.6762 21.0001 14.387 21.0001 12C21.0001 9.61304 20.0518 7.32384 18.364 5.636C16.6762 3.94816 14.387 2.99994 12 2.99994C9.61304 2.99994 7.32384 3.94816 5.636 5.636C3.94816 7.32384 2.99994 9.61304 2.99994 12C2.99994 14.387 3.94816 16.6762 5.636 18.364Z"
-              fill="white"
+              d="M12 5V19M12 19L5 12M12 19L19 12"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
-        </Button>
+        </span>
       </div>
     </section>
   )

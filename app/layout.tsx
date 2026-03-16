@@ -29,12 +29,21 @@ export const metadata: Metadata = {
     "bain contrasté",
     "sauna infrarouge",
     "pressothérapie",
+    "cryothérapie",
+    "drainage lymphatique",
+    "massage sportif",
+    "récupération musculaire",
     "Corse",
+    "Bastia",
+    "Ajaccio",
+    "Furiani",
+    "Haute-Corse",
+    "sport Corse",
     "bien-être",
     "relaxation",
-    "sport",
     "athlètes",
-    "récupération musculaire",
+    "performance sportive",
+    "prévention blessures",
   ],
   authors: [{ name: "U Bagnu" }],
   creator: "U Bagnu",
@@ -82,10 +91,10 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "HealthAndBeautyBusiness",
   name: "U Bagnu",
   description:
-    "Récupération sportive mobile en Corse. Bains froids, sauna infrarouge, pressothérapie pour sportifs et particuliers.",
+    "Récupération sportive mobile en Corse. Bains froids, sauna infrarouge, pressothérapie pour sportifs et particuliers à Bastia, Furiani et toute la Corse.",
   url: "https://u-bagnu.com",
   logo: "https://u-bagnu.com/img/logo/logo-type.svg",
   image: "https://u-bagnu.com/img/og-image.jpg",
@@ -97,20 +106,62 @@ const jsonLd = {
     addressRegion: "Corse",
     addressCountry: "FR",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 42.6581,
+    longitude: 9.4264,
+  },
   telephone: "+33634523558",
   email: "ubagnu.corsica@gmail.com",
-  areaServed: {
-    "@type": "Place",
-    name: "Corse, France",
-  },
-  serviceType: [
-    "Bains immersifs",
-    "Bain froid",
-    "Bain contrasté",
-    "Sauna infrarouge",
-    "Pressothérapie",
-    "Récupération sportive",
+  sameAs: [
+    "https://instagram.com/ubagnu",
+    "https://facebook.com/ubagnu",
   ],
+  areaServed: [
+    { "@type": "City", name: "Bastia" },
+    { "@type": "City", name: "Furiani" },
+    { "@type": "City", name: "Ajaccio" },
+    { "@type": "AdministrativeArea", name: "Corse" },
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Services de récupération sportive",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Bains froids",
+          description:
+            "Favorise la récupération musculaire, diminue les inflammations et prépare le corps à l'enchaînement des efforts.",
+        },
+        price: "16",
+        priceCurrency: "EUR",
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Sauna infrarouge",
+          description:
+            "Relaxation profonde, récupération nerveuse et musculaire, idéal en complément des soins sportifs.",
+        },
+        price: "16",
+        priceCurrency: "EUR",
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Pressothérapie",
+          description:
+            "Améliore la circulation sanguine, réduit les courbatures et accélère la récupération musculaire après l'effort.",
+        },
+        price: "20",
+        priceCurrency: "EUR",
+      },
+    ],
+  },
   priceRange: "€€",
 }
 

@@ -64,7 +64,8 @@ const ServicesNeedsSection = () => {
       {/* Background Image */}
       <Image
         src="/img/services/needs-background.jpg"
-        alt=""
+        alt="Athlète en séance de récupération sportive"
+        role="presentation"
         width={1200}
         height={600}
         className="absolute h-full w-auto object-cover object-bottom lg:h-auto lg:w-full"

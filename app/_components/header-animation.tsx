@@ -14,7 +14,6 @@ const HeaderAnimation = () => {
   const collapsedHeaderH = useRef(0)
   const collapsedWrapperH = useRef(0)
   const btnOriginalSize = useRef({ width: 0, height: 0 })
-  const savedScrollY = useRef(0)
 
   useEffect(() => {
     const header = document.querySelector<HTMLElement>("#header-container")
@@ -25,6 +24,7 @@ const HeaderAnimation = () => {
     // --- Initial states ---
     gsap.set("#contact-content", { display: "none", autoAlpha: 0, y: 24 })
     gsap.set("#contact-btn-icon", { autoAlpha: 0 })
+    gsap.set("#contact-close-mobile", { display: "none", autoAlpha: 0 })
 
     // --- Helpers ---
     const checkMobile = () => {
@@ -84,10 +84,14 @@ const HeaderAnimation = () => {
     const openContact = () => {
       if (isContactOpen.current) return
       isContactOpen.current = true
-      savedScrollY.current = window.scrollY
-      document.body.style.position = "fixed"
-      document.body.style.top = `-${savedScrollY.current}px`
-      document.body.style.width = "100%"
+
+      // Bring header back into view if it was hidden
+      if (isHidden.current) {
+        isHidden.current = false
+        gsap.set(header, { yPercent: 0 })
+      }
+
+      document.body.style.overflow = "hidden"
 
       collapsedHeaderH.current = header.offsetHeight
       collapsedWrapperH.current = headerWrapper.offsetHeight
@@ -110,7 +114,9 @@ const HeaderAnimation = () => {
       tl
         // Phase 0 — nav links fade, button text fades, button morphs to circle
         .to("#header-nav-links", { autoAlpha: 0, duration: 0.2, ease: "power2.in" })
-        .to("#mobile-menu-wrapper", { autoAlpha: 0, duration: 0.2, ease: "power2.in" }, "<")
+        .to("#mobile-menu-wrapper", { autoAlpha: 0, display: "none", duration: 0.2, ease: "power2.in" }, "<")
+        .set("#contact-close-mobile", { display: "flex" })
+        .to("#contact-close-mobile", { autoAlpha: 1, duration: 0.2, ease: "power2.out" })
         .to("#contact-btn-text", { autoAlpha: 0, duration: 0.15, ease: "power2.in" }, "<")
         .to(
           "#contact-btn",
@@ -144,10 +150,7 @@ const HeaderAnimation = () => {
     const closeContact = () => {
       if (!isContactOpen.current) return
       isContactOpen.current = false
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.width = ""
-      window.scrollTo(0, savedScrollY.current)
+      document.body.style.overflow = ""
 
       const paddingH = isMobileRef.current ? 16 : 31
       const radius = isMobileRef.current ? "0 0 24px 24px" : "0 0 40px 40px"
@@ -160,6 +163,7 @@ const HeaderAnimation = () => {
           gsap.set("#contact-btn", { clearProps: "width,height,borderRadius,padding,overflow" })
           gsap.set("#contact-btn-icon", { autoAlpha: 0 })
           gsap.set("#contact-btn-text", { autoAlpha: 1 })
+          gsap.set("#contact-close-mobile", { display: "none", autoAlpha: 0 })
         },
       })
 
@@ -206,13 +210,19 @@ const HeaderAnimation = () => {
           "<0.1"
         )
         .to("#contact-btn-text", { autoAlpha: 1, duration: 0.2, ease: "power2.out" }, ">-0.15")
+        .to("#contact-close-mobile", { autoAlpha: 0, duration: 0.2, ease: "power2.in" }, "<0.05")
+        .set("#contact-close-mobile", { display: "none" })
         .to("#header-nav-links", { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, "<0.08")
-        .to("#mobile-menu-wrapper", { autoAlpha: 1, duration: 0.25, ease: "power2.out" }, "<")
+        .to("#mobile-menu-wrapper", { autoAlpha: 1, duration: 0.25, ease: "power2.out", clearProps: "display" }, "<")
     }
 
     const handleContactClick = () => {
       if (isContactOpen.current) closeContact()
       else openContact()
+    }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isContactOpen.current) closeContact()
     }
 
     const handleWheel = (e: WheelEvent) => {
@@ -222,19 +232,36 @@ const HeaderAnimation = () => {
       header.scrollBy({ top: delta })
     }
 
+    // Event delegation for [data-open-contact] (works with portals & dynamic elements)
+    const handleOpenContactDelegate = (e: MouseEvent) => {
+      const trigger = (e.target as HTMLElement).closest("[data-open-contact]")
+      if (!trigger || trigger.id === "contact-btn") return
+      openContact()
+    }
+
+    const contactCloseBtn = document.querySelector<HTMLElement>("#contact-close-mobile")
+
     window.addEventListener("scroll", handleScroll, { passive: true })
     window.addEventListener("wheel", handleWheel, { passive: false })
+    window.addEventListener("keydown", handleKeyDown)
     window.addEventListener("resize", checkMobile)
+    const handleOpenContactEvent = () => openContact()
+
+    document.addEventListener("click", handleOpenContactDelegate)
+    window.addEventListener("open-contact", handleOpenContactEvent)
     contactBtn?.addEventListener("click", handleContactClick)
+    contactCloseBtn?.addEventListener("click", closeContact)
 
     return () => {
       window.removeEventListener("scroll", handleScroll)
       window.removeEventListener("wheel", handleWheel)
+      window.removeEventListener("keydown", handleKeyDown)
       window.removeEventListener("resize", checkMobile)
+      document.removeEventListener("click", handleOpenContactDelegate)
+      window.removeEventListener("open-contact", handleOpenContactEvent)
       contactBtn?.removeEventListener("click", handleContactClick)
-      document.body.style.position = ""
-      document.body.style.top = ""
-      document.body.style.width = ""
+      contactCloseBtn?.removeEventListener("click", closeContact)
+      document.body.style.overflow = ""
     }
   }, [])
 

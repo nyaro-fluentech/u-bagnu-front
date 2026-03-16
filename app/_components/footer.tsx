@@ -79,9 +79,22 @@ const Footer = () => {
 
       {/* Bottom - Copyright and socials */}
       <div className="flex items-center justify-between">
-        <p className="font-outfit text-[14px] font-bold text-[#2E2E2E]">
-          &copy; {new Date().getFullYear()} U Bagnu
-        </p>
+        <div className="flex flex-col gap-1">
+          <p className="font-outfit text-[14px] font-bold text-[#2E2E2E]">
+            &copy; {new Date().getFullYear()} U Bagnu
+          </p>
+          <p className="font-inter text-[12px] text-[#2E2E2E]/60">
+            Conçu et développé par{" "}
+            <Link
+              href="https://fluentech-group.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#2E2E2E]/80 transition-opacity hover:opacity-70"
+            >
+              Fluentech
+            </Link>
+          </p>
+        </div>
 
         {/* Social links */}
         <div className="flex items-center gap-[16px]">

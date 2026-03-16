@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import Link from "next/link"
 import ServicesNeedsCarousel from "./services-needs-carousel"
 import ServicesNeedsAnimation from "./services-needs-animation"
+
+const CALENDLY_URL = "https://calendly.com/ubagnu"
 
 const services = [
   {
@@ -122,7 +125,17 @@ const ServicesNeedsSection = () => {
                       </p>
 
                       {/* Button */}
-                      <Button variant="secondary">{service.buttonText}</Button>
+                      {service.buttonText === "Contact" ? (
+                        <Button variant="secondary" data-open-contact>
+                          {service.buttonText}
+                        </Button>
+                      ) : (
+                        <Button variant="secondary" asChild>
+                          <Link href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+                            {service.buttonText}
+                          </Link>
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -173,9 +186,17 @@ const ServicesNeedsSection = () => {
                   </p>
 
                   {/* Button */}
-                  <Button variant="secondary" className="w-fit">
-                    {service.buttonText}
-                  </Button>
+                  {service.buttonText === "Contact" ? (
+                    <Button variant="secondary" className="w-fit" data-open-contact>
+                      {service.buttonText}
+                    </Button>
+                  ) : (
+                    <Button variant="secondary" className="w-fit" asChild>
+                      <Link href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
+                        {service.buttonText}
+                      </Link>
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

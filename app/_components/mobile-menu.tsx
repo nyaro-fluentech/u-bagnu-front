@@ -252,7 +252,15 @@ const MobileMenu = () => {
 
                 {/* Buttons */}
                 <div className="mt-10 flex flex-col gap-[12px]">
-                  <Button onClick={closeMenu} className="w-full">
+                  <Button
+                    onClick={() => {
+                      closeMenu()
+                      setTimeout(() => {
+                        window.dispatchEvent(new CustomEvent("open-contact"))
+                      }, 450)
+                    }}
+                    className="w-full"
+                  >
                     Contact
                   </Button>
                   <Button

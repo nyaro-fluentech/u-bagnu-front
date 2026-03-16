@@ -26,6 +26,8 @@ const audiences = [
     description:
       "Réduisez le stress, améliorez la récupération globale et le bien-être corporel.",
     image: "/img/audiences/wellbeing.jpg",
+    gradient:
+      "linear-gradient(180deg, rgba(41, 84, 164, 0.75) 0%, rgba(41, 84, 164, 0) 100%)",
   },
 ]
 
@@ -123,6 +125,7 @@ const AudiencesSection = () => {
                   <Button
                     variant="secondary"
                     className="mt-[8px] w-fit rounded-full bg-white px-[20px] py-[10px] text-[14px] text-[#3B5998] hover:bg-white/90"
+                    data-open-contact
                   >
                     Contact
                   </Button>
@@ -167,6 +170,7 @@ const AudiencesSection = () => {
                   <Button
                     variant="secondary"
                     className="mt-[8px] w-fit rounded-full bg-white px-[20px] py-[10px] text-[14px] text-[#3B5998] hover:bg-white/90 lg:px-[24px] lg:py-[12px]"
+                    data-open-contact
                   >
                     Contact
                   </Button>

@@ -55,11 +55,12 @@ const BrochureForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex w-full max-w-[834px] flex-col gap-2">
+    <form
+      onSubmit={handleSubmit}
+      className="flex w-full max-w-[834px] flex-col gap-2"
+    >
       {status === "error" && (
-        <p className="px-4 text-sm text-red-300">
-          {errorMsg}
-        </p>
+        <p className="px-4 text-sm text-red-300">{errorMsg}</p>
       )}
       <div className="flex w-full flex-col gap-[12px] lg:flex-row lg:items-center lg:gap-0 lg:rounded-[44px] lg:bg-white lg:p-[10px]">
         <input
@@ -76,7 +77,9 @@ const BrochureForm = () => {
           disabled={!isValid || status === "sending"}
           className="w-full px-[24px] py-[16px] text-[14px] md:text-[15px] lg:w-auto lg:px-[32px] lg:py-[18px] lg:text-[16px]"
         >
-          {status === "sending" ? "Envoi en cours..." : "Envoyer la brochure"}
+          {status === "sending"
+            ? "Envoi en cours..."
+            : "Envoyez-moi la brochure"}
         </Button>
       </div>
     </form>

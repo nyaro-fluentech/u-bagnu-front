@@ -9,6 +9,8 @@ const audiences = [
     description:
       "Optimisez votre récupération après l'effort et restez performant plus longtemps.",
     image: "/img/audiences/athletes.jpg",
+    gradient:
+      "linear-gradient(180deg, rgba(41, 84, 164, 0.75) 0%, rgba(41, 84, 164, 0) 100%)",
   },
   {
     title: "ÉVÉNEMENTS & CLUBS",

@@ -66,9 +66,10 @@ const ServicesNeedsSection = () => {
         src="/img/services/needs-background.jpg"
         alt="Athlète en séance de récupération sportive"
         role="presentation"
-        width={1200}
-        height={600}
-        className="absolute h-full w-auto object-cover object-bottom lg:h-auto lg:w-full"
+        fill
+        sizes="100vw"
+        loading="lazy"
+        className="object-cover object-bottom"
       />
 
       <ServicesNeedsAnimation />

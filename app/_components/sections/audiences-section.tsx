@@ -60,6 +60,8 @@ const AudiencesSection = () => {
                 alt={audience.title}
                 fill
                 data-audience-image
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 387px"
+                loading="lazy"
                 className="object-cover brightness-75 grayscale transition-all duration-300 md:brightness-100 md:grayscale-0"
               />
 

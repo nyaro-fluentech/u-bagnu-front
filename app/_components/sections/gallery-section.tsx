@@ -10,7 +10,7 @@ const galleryImages = [
     alt: "Séance de bain froid pour récupération sportive",
   },
   {
-    src: "/img/gallery/1-a.png",
+    src: "/img/gallery/1-a.webp",
     alt: "Athlète en immersion dans un bain de récupération",
   },
   {
@@ -22,7 +22,7 @@ const galleryImages = [
     alt: "Récupération musculaire après entraînement sportif",
   },
   {
-    src: "/img/gallery/2-a.png",
+    src: "/img/gallery/2-a.webp",
     alt: "Séance de pressothérapie pour sportifs",
   },
   {
@@ -30,7 +30,7 @@ const galleryImages = [
     alt: "Sauna infrarouge pour relaxation profonde",
   },
   {
-    src: "/img/gallery/2-c.png",
+    src: "/img/gallery/2-c.webp",
     alt: "Équipement mobile de récupération sportive U Bagnu",
   },
   {
@@ -38,7 +38,7 @@ const galleryImages = [
     alt: "Préparation physique et récupération en Corse",
   },
   {
-    src: "/img/gallery/3-c.png",
+    src: "/img/gallery/3-c.webp",
     alt: "Bien-être et régénération du corps après effort",
   },
 ]
@@ -55,14 +55,38 @@ const allImages = galleryImages.map((img) => img.src)
 
 // Initial images for each block (all different)
 const initialImages = [
-  "/img/gallery/1-a.png",
-  "/img/gallery/2-a.png",
-  "/img/gallery/3-c.png",
+  "/img/gallery/1-a.webp",
+  "/img/gallery/2-a.webp",
+  "/img/gallery/3-c.webp",
   "/img/gallery/2-b.jpg",
   "/img/gallery/1-b.png",
   "/img/gallery/1-c.png",
-  "/img/gallery/2-c.png",
+  "/img/gallery/2-c.webp",
 ]
+
+const GalleryBlock = ({
+  blockIndex,
+  sizes,
+  className,
+}: {
+  blockIndex: number
+  sizes: string
+  className: string
+}) => (
+  <div className={`gallery-block-${blockIndex} ${className}`}>
+    {allImages.map((src, i) => (
+      <Image
+        key={src}
+        src={src}
+        alt={getAltText(src)}
+        fill
+        sizes={sizes}
+        loading={src === initialImages[blockIndex] ? "eager" : "lazy"}
+        className={`object-center gallery-img-${blockIndex}-${i} object-cover transition-opacity duration-1000 ${src === initialImages[blockIndex] ? "opacity-100" : "opacity-0"}`}
+      />
+    ))}
+  </div>
+)
 
 const GallerySection = () => {
   return (
@@ -82,45 +106,21 @@ const GallerySection = () => {
       <div className="relative flex w-full flex-col gap-[16px] md:gap-[45px]">
         {/* Row 1 */}
         <div className="relative flex w-full flex-row items-center gap-[16px] md:gap-[45px]">
-          {/* Left - Full height, no left border radius */}
-          <div className="gallery-block-0 relative h-[250px] flex-1 overflow-hidden rounded-r-[12px] md:h-[632px] md:rounded-r-[24px]">
-            {allImages.map((src, i) => (
-              <Image
-                key={src}
-                src={src}
-                alt={getAltText(src)}
-                fill
-                sizes="(max-width: 768px) 100vw, 40vw"
-                className={`object-center gallery-img-0-${i} object-cover transition-opacity duration-1000 ${src === initialImages[0] ? "opacity-100" : "opacity-0"}`}
-              />
-            ))}
-          </div>
-          {/* Center - Rounded */}
-          <div className="gallery-block-1 relative h-[250px] w-1/3 shrink-0 overflow-hidden rounded-[12px] md:h-[632px] md:rounded-[24px] lg:w-1/4">
-            {allImages.map((src, i) => (
-              <Image
-                key={src}
-                src={src}
-                alt={getAltText(src)}
-                fill
-                sizes="(max-width: 768px) 100vw, 25vw"
-                className={`object-center gallery-img-1-${i} object-cover transition-opacity duration-1000 ${src === initialImages[1] ? "opacity-100" : "opacity-0"}`}
-              />
-            ))}
-          </div>
-          {/* Right - Full height, no right border radius */}
-          <div className="gallery-block-2 relative h-[250px] flex-1 overflow-hidden rounded-l-[12px] md:h-[632px] md:rounded-l-[24px]">
-            {allImages.map((src, i) => (
-              <Image
-                key={src}
-                src={src}
-                alt={getAltText(src)}
-                fill
-                sizes="(max-width: 768px) 100vw, 40vw"
-                className={`object-center gallery-img-2-${i} object-cover transition-opacity duration-1000 ${src === initialImages[2] ? "opacity-100" : "opacity-0"}`}
-              />
-            ))}
-          </div>
+          <GalleryBlock
+            blockIndex={0}
+            sizes="(max-width: 768px) 100vw, 40vw"
+            className="relative h-[250px] flex-1 overflow-hidden rounded-r-[12px] md:h-[632px] md:rounded-r-[24px]"
+          />
+          <GalleryBlock
+            blockIndex={1}
+            sizes="(max-width: 768px) 100vw, 25vw"
+            className="relative h-[250px] w-1/3 shrink-0 overflow-hidden rounded-[12px] md:h-[632px] md:rounded-[24px] lg:w-1/4"
+          />
+          <GalleryBlock
+            blockIndex={2}
+            sizes="(max-width: 768px) 100vw, 40vw"
+            className="relative h-[250px] flex-1 overflow-hidden rounded-l-[12px] md:h-[632px] md:rounded-l-[24px]"
+          />
 
           {/* Marquee Text - positioned at the bottom of row 1, centered in the gap */}
           <div
@@ -142,59 +142,29 @@ const GallerySection = () => {
 
         {/* Row 2 */}
         <div className="flex w-full flex-row items-stretch gap-[16px] md:gap-[45px]">
-          {/* Left - Full height, no left border radius */}
-          <div className="gallery-block-3 relative h-[250px] flex-1 overflow-hidden rounded-r-[12px] md:h-[629px] md:rounded-r-[24px]">
-            {allImages.map((src, i) => (
-              <Image
-                key={src}
-                src={src}
-                alt={getAltText(src)}
-                fill
-                sizes="(max-width: 768px) 100vw, 40vw"
-                className={`object-center gallery-img-3-${i} object-cover transition-opacity duration-1000 ${src === initialImages[3] ? "opacity-100" : "opacity-0"}`}
-              />
-            ))}
-          </div>
+          <GalleryBlock
+            blockIndex={3}
+            sizes="(max-width: 768px) 100vw, 40vw"
+            className="relative h-[250px] flex-1 overflow-hidden rounded-r-[12px] md:h-[629px] md:rounded-r-[24px]"
+          />
           {/* Center - Two stacked images */}
           <div className="flex w-1/3 shrink-0 flex-col gap-[16px] md:gap-[45px] lg:w-1/4">
-            <div className="gallery-block-4 relative h-[117px] overflow-hidden rounded-[12px] md:h-[326px] md:rounded-[24px]">
-              {allImages.map((src, i) => (
-                <Image
-                  key={src}
-                  src={src}
-                  alt={getAltText(src)}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 25vw"
-                  className={`object-center gallery-img-4-${i} object-cover transition-opacity duration-1000 ${src === initialImages[4] ? "opacity-100" : "opacity-0"}`}
-                />
-              ))}
-            </div>
-            <div className="gallery-block-6 relative h-[117px] overflow-hidden rounded-[12px] md:h-[326px] md:rounded-[24px]">
-              {allImages.map((src, i) => (
-                <Image
-                  key={src}
-                  src={src}
-                  alt={getAltText(src)}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 25vw"
-                  className={`object-center gallery-img-6-${i} object-cover transition-opacity duration-1000 ${src === initialImages[6] ? "opacity-100" : "opacity-0"}`}
-                />
-              ))}
-            </div>
+            <GalleryBlock
+              blockIndex={4}
+              sizes="(max-width: 768px) 100vw, 25vw"
+              className="relative h-[117px] overflow-hidden rounded-[12px] md:h-[326px] md:rounded-[24px]"
+            />
+            <GalleryBlock
+              blockIndex={6}
+              sizes="(max-width: 768px) 100vw, 25vw"
+              className="relative h-[117px] overflow-hidden rounded-[12px] md:h-[326px] md:rounded-[24px]"
+            />
           </div>
-          {/* Right - Full height, no right border radius */}
-          <div className="gallery-block-5 relative h-[250px] w-2/5 overflow-hidden rounded-l-[12px] md:h-[629px] md:rounded-l-[24px]">
-            {allImages.map((src, i) => (
-              <Image
-                key={src}
-                src={src}
-                alt={getAltText(src)}
-                fill
-                sizes="(max-width: 768px) 100vw, 40vw"
-                className={`object-center gallery-img-5-${i} object-cover transition-opacity duration-1000 ${src === initialImages[5] ? "opacity-100" : "opacity-0"}`}
-              />
-            ))}
-          </div>
+          <GalleryBlock
+            blockIndex={5}
+            sizes="(max-width: 768px) 100vw, 40vw"
+            className="relative h-[250px] w-2/5 overflow-hidden rounded-l-[12px] md:h-[629px] md:rounded-l-[24px]"
+          />
         </div>
       </div>
     </section>

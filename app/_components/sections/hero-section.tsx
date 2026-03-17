@@ -3,9 +3,9 @@ import Image from "next/image"
 import HeroAnimation from "./hero-animation"
 
 const backgrounds = [
-  "/img/background/background-1.png",
-  "/img/background/background-2.png",
-  "/img/background/background-3.png",
+  "/img/background/background-1.webp",
+  "/img/background/background-2.webp",
+  "/img/background/background-3.webp",
 ]
 
 const HeroSection = () => {

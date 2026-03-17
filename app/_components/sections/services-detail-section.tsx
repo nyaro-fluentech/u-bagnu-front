@@ -3,7 +3,7 @@ import ServicesDetailAnimation from "./services-detail-animation"
 
 const services = [
   {
-    image: "/img/services/image-1.png",
+    image: "/img/services/image-1.webp",
     category: "Performance et régénération",
     title: "Récupération sportive",
     description:
@@ -60,6 +60,8 @@ const ServicesDetailSection = () => {
                 src={service.image}
                 alt={service.title}
                 fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 468px"
+                loading="lazy"
                 className="object-cover"
               />
               {/* Gradient overlay for text readability */}
@@ -92,6 +94,8 @@ const ServicesDetailSection = () => {
                 src={service.image}
                 alt={service.title}
                 fill
+                sizes="468px"
+                loading="lazy"
                 className={`service-image-${i + 1} object-cover ${i === 0 ? "opacity-100" : "opacity-0"}`}
               />
             ))}

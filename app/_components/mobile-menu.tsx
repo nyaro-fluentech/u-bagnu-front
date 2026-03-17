@@ -146,7 +146,7 @@ const MobileMenu = () => {
             role="dialog"
             aria-modal="true"
           >
-            <div className="flex flex-1 flex-col gap-[24px] gap-[54px] px-[32px] pt-[120px]">
+            <div className="flex flex-1 flex-col gap-[54px] overflow-y-auto px-[32px] pt-[120px] pb-[40px]">
               {/* Navigation */}
               <nav>
                 <ul className="flex flex-col">

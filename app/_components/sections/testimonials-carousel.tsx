@@ -129,6 +129,8 @@ const TestimonialsCarousel = ({ testimonials }: TestimonialsCarouselProps) => {
                     src={testimonial.image}
                     alt={`Portrait de ${testimonial.name}`}
                     fill
+                    sizes="50vw"
+                    loading="lazy"
                     className="object-contain object-bottom"
                   />
                 </div>
@@ -160,8 +162,9 @@ const TestimonialsCarousel = ({ testimonials }: TestimonialsCarouselProps) => {
                       src={testimonial.image}
                       alt={`Portrait de ${testimonial.name}`}
                       fill
-                      className="object-contain object-bottom"
                       sizes="500px"
+                      loading="lazy"
+                      className="object-contain object-bottom"
                     />
                   </div>
 

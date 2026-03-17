@@ -32,6 +32,8 @@ const AboutSection = () => {
               src="/img/about/founders.jpg"
               alt="Les fondateurs de U Bagnu"
               fill
+              sizes="(max-width: 1024px) 100vw, 431px"
+              loading="lazy"
               className="object-cover"
             />
           </div>
@@ -81,6 +83,8 @@ const AboutSection = () => {
               src="/img/about/founders.jpg"
               alt="Les fondateurs de U Bagnu"
               fill
+              sizes="431px"
+              loading="lazy"
               className="object-cover"
             />
           </div>

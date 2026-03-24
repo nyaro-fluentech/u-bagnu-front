@@ -57,7 +57,11 @@ const HeroSection = () => {
       {/* Buttons section */}
       <div className="relative z-2 flex flex-col gap-[16px] lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-col gap-[16px] lg:flex-row">
-          <Button variant="secondary" className="w-full lg:w-auto" data-open-contact>
+          <Button
+            variant="secondary"
+            className="w-full lg:w-auto"
+            data-open-contact
+          >
             Contact
           </Button>
           <Button

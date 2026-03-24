@@ -7,15 +7,15 @@ const testimonials = [
     title: "Ailier Droite – Club de Bastia",
     quote:
       "U Bagnu m'aide à rester constant dans ma performance. Après chaque match, leurs soins ciblés soulagent mes tensions et accélèrent ma récupération. Leur approche mobile et méthodique me permet de m'entraîner sereinement, de prévenir les blessures et d'aborder chaque tournoi avec confiance et énergie.",
-    image: "/img/testimonials/theo.png",
+    image: "/img/testimonials/seb.png",
   },
   {
     id: 2,
-    name: "Leo Caron",
+    name: "Lauriane",
     title: "Ailier Droite – Club de Bastia",
     quote:
       "U Bagnu m'aide à rester constant dans ma performance. Après chaque match, leurs soins ciblés soulagent mes tensions et accélèrent ma récupération. Leur approche mobile et méthodique me permet de m'entraîner sereinement, de prévenir les blessures et d'aborder chaque tournoi avec confiance et énergie.",
-    image: "/img/testimonials/leo.png",
+    image: "/img/testimonials/lauriane.png",
   },
   {
     id: 3,

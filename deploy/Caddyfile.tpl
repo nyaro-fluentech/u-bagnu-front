@@ -20,12 +20,6 @@ ${DOMAIN} {
 		X-Frame-Options "SAMEORIGIN"
 		X-Content-Type-Options "nosniff"
 		Referrer-Policy "strict-origin-when-cross-origin"
-		# Retirer le header Server pour ne pas exposer la stack
 		-Server
-	}
-
-	log {
-		format json
-		output stdout
 	}
 }

@@ -1,6 +1,5 @@
 {
 	auto_https off
-
 	log {
 		format json
 		output stdout

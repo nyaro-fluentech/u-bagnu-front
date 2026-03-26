@@ -74,7 +74,7 @@ jobs:
       # ── Générer Caddyfile depuis le template ──────────────────────────────
       - name: Generate Caddyfile
         env:
-          DOMAIN: client-a.fluen.tech
+          DOMAIN: ${{ secrets.DOMAIN }}
         run: |
           envsubst < deploy/Caddyfile.tpl > /tmp/Caddyfile
 

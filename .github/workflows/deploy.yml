@@ -1,0 +1,125 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: "Git SHA to deploy (leave empty for HEAD)"
+        required: false
+        default: ""
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    timeout-minutes: 30
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.sha || github.sha }}
+
+      # ── Clé SSH + certificats TLS (stockés en base64 dans Phase / GitHub) ─
+      - name: Prepare credentials
+        env:
+          DEPLOY_SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          ORIGIN_CERT: ${{ secrets.ORIGIN_CERT }}
+          ORIGIN_KEY: ${{ secrets.ORIGIN_KEY }}
+        run: |
+          echo "$DEPLOY_SSH_PRIVATE_KEY" | base64 -d > /tmp/deploy_key
+          chmod 600 /tmp/deploy_key
+
+          echo "$ORIGIN_CERT" | base64 -d > /tmp/origin.crt
+          echo "$ORIGIN_KEY"  | base64 -d > /tmp/origin.key
+
+      # ── SSH agent ─────────────────────────────────────────────────────────
+      - name: Setup SSH agent
+        env:
+          VPS_IP: ${{ secrets.VPS_IP }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          eval "$(ssh-agent -s)"
+          ssh-add /tmp/deploy_key
+          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
+          echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> "$GITHUB_ENV"
+
+          mkdir -p ~/.ssh
+          cat >> ~/.ssh/config <<EOF
+          Host vps-deploy
+            HostName ${VPS_IP}
+            Port ${SSH_PORT}
+            User deploy
+            IdentityFile /tmp/deploy_key
+            StrictHostKeyChecking no
+            UserKnownHostsFile /dev/null
+          EOF
+
+      # ── Générer .env applicatif ───────────────────────────────────────────
+      - name: Generate .env
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+        run: |
+          cat > .env <<EOF
+          NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+          RESEND_API_KEY=${RESEND_API_KEY}
+          TO_EMAIL=${TO_EMAIL}
+          EOF
+
+      # ── Générer Caddyfile depuis le template ──────────────────────────────
+      - name: Generate Caddyfile
+        env:
+          DOMAIN: client-a.fluen.tech
+        run: |
+          envsubst < deploy/Caddyfile.tpl > /tmp/Caddyfile
+
+      # ── Build image Docker ────────────────────────────────────────────────
+      - name: Build Docker image
+        run: |
+          docker build \
+            --tag ubagnu-app:${{ github.sha }} \
+            --tag ubagnu-app:latest \
+            --file Dockerfile \
+            .
+
+      # ── Push image vers le VPS via SSH (sans registry) ───────────────────
+      - name: Push image to VPS
+        run: |
+          docker save ubagnu-app:${{ github.sha }} \
+            | gzip \
+            | ssh vps-deploy "docker load"
+
+      # ── Copier les fichiers de config sur le VPS ──────────────────────────
+      - name: Copy deploy files to VPS
+        run: |
+          scp deploy/docker-compose.yml  vps-deploy:/opt/ubagnu/docker-compose.yml
+          scp .env                        vps-deploy:/opt/ubagnu/.env
+          scp /tmp/Caddyfile              vps-deploy:/opt/ubagnu/Caddyfile
+          scp /tmp/origin.crt             vps-deploy:/opt/ubagnu/certs/origin.crt
+          scp /tmp/origin.key             vps-deploy:/opt/ubagnu/certs/origin.key
+
+      # ── Déploiement ───────────────────────────────────────────────────────
+      - name: Deploy via docker compose
+        run: |
+          ssh vps-deploy "
+            cd /opt/ubagnu
+            APP_IMAGE_TAG=${{ github.sha }} docker compose up -d --remove-orphans
+          "
+
+      # ── Nettoyage VPS ─────────────────────────────────────────────────────
+      - name: Prune Docker on VPS
+        run: |
+          ssh vps-deploy "docker system prune -f"
+
+      # ── Nettoyage local ───────────────────────────────────────────────────
+      - name: Cleanup sensitive files
+        if: always()
+        run: |
+          shred -u /tmp/deploy_key /tmp/origin.crt /tmp/origin.key /tmp/Caddyfile 2>/dev/null || true
+          shred -u .env 2>/dev/null || true
+          ssh-agent -k 2>/dev/null || true

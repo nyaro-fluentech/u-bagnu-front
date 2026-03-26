@@ -45,3 +45,8 @@ next-env.d.ts
 /.brv
 # example
 /example
+
+# deploy — fichiers générés ou sensibles (jamais commités)
+.env
+deploy/Caddyfile
+deploy/certs/

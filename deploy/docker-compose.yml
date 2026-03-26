@@ -1,0 +1,45 @@
+services:
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      # Aucun port entrant exposé : le tunnel Cloudflare communique directement
+      # avec Caddy en interne. Ce bloc est conservé pour dev local uniquement.
+      - "127.0.0.1:80:80"
+      - "127.0.0.1:443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./certs:/etc/caddy/certs:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - frontend
+    depends_on:
+      app:
+        condition: service_healthy
+
+  app:
+    image: ubagnu-app:${APP_IMAGE_TAG:-latest}
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+    networks:
+      - frontend
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ > /dev/null 2>&1"]
+      interval: 15s
+      timeout: 10s
+      start_period: 90s
+      retries: 5
+
+networks:
+  frontend:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:

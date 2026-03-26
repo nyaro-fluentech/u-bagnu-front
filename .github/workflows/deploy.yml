@@ -109,6 +109,7 @@ jobs:
           ssh vps-deploy "
             cd /opt/ubagnu
             APP_IMAGE_TAG=${{ github.sha }} docker compose up -d --remove-orphans
+            docker compose exec caddy caddy reload --config /etc/caddy/Caddyfile
           "
 
       # ── Nettoyage VPS ─────────────────────────────────────────────────────

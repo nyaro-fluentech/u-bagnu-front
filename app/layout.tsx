@@ -48,14 +48,14 @@ export const metadata: Metadata = {
   authors: [{ name: "U Bagnu" }],
   creator: "U Bagnu",
   publisher: "U Bagnu",
-  metadataBase: new URL("https://u-bagnu.com"),
+  metadataBase: new URL("https://www.ubagnu.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    url: "https://u-bagnu.com",
+    url: "https://www.ubagnu.com",
     siteName: "U Bagnu",
     title: "U Bagnu | Récupération sportive en Corse",
     description:
@@ -95,9 +95,9 @@ const jsonLd = {
   name: "U Bagnu",
   description:
     "Récupération sportive mobile en Corse. Bains froids, sauna infrarouge, pressothérapie pour sportifs et particuliers à Bastia, Furiani et toute la Corse.",
-  url: "https://u-bagnu.com",
-  logo: "https://u-bagnu.com/img/logo/logo-type.svg",
-  image: "https://u-bagnu.com/img/og-image.jpg",
+  url: "https://www.ubagnu.com",
+  logo: "https://www.ubagnu.com/img/logo/logo-type.svg",
+  image: "https://www.ubagnu.com/img/og-image.jpg",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Z.I Erbajolo Lotissement Restituta",
@@ -113,10 +113,7 @@ const jsonLd = {
   },
   telephone: "+33634523558",
   email: "ubagnu.corsica@gmail.com",
-  sameAs: [
-    "https://instagram.com/ubagnu",
-    "https://facebook.com/ubagnu",
-  ],
+  sameAs: ["https://instagram.com/ubagnu", "https://facebook.com/ubagnu"],
   areaServed: [
     { "@type": "City", name: "Bastia" },
     { "@type": "City", name: "Furiani" },

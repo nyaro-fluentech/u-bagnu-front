@@ -74,7 +74,7 @@ jobs:
       # ── Générer Caddyfile depuis le template ──────────────────────────────
       - name: Generate Caddyfile
         env:
-          DOMAIN: client-a.fluen.tech
+          DOMAIN: ${{ secrets.DOMAIN }}
         run: |
           envsubst < deploy/Caddyfile.tpl > /tmp/Caddyfile
 
@@ -109,12 +109,13 @@ jobs:
           ssh vps-deploy "
             cd /opt/ubagnu
             APP_IMAGE_TAG=${{ github.sha }} docker compose up -d --remove-orphans
+            docker compose exec caddy caddy reload --config /etc/caddy/Caddyfile || docker compose restart caddy
           "
 
       # ── Nettoyage VPS ─────────────────────────────────────────────────────
       - name: Prune Docker on VPS
         run: |
-          ssh vps-deploy "docker system prune -f"
+          ssh vps-deploy "docker image prune -f"
 
       # ── Nettoyage local ───────────────────────────────────────────────────
       - name: Cleanup sensitive files

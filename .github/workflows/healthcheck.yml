@@ -14,22 +14,30 @@ jobs:
   healthcheck:
     runs-on: self-hosted
     timeout-minutes: 5
+    # Si déclenché par deploy.yml, ne vérifier que les runs réussis
+    if: >
+      github.event_name == 'schedule' ||
+      github.event.workflow_run.conclusion == 'success'
 
     steps:
       - name: Check site availability
         id: check
+        env:
+          DOMAIN: ${{ secrets.DOMAIN }}
         run: |
+          # Suivre les redirects (-L) et vérifier le code final
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             --max-time 15 \
             --retry 3 \
             --retry-delay 5 \
-            https://client-a.fluen.tech)
+            -L \
+            "https://www.${DOMAIN}")
 
           echo "status=$HTTP_STATUS" >> "$GITHUB_OUTPUT"
+          echo "HTTP status: $HTTP_STATUS"
 
           if [ "$HTTP_STATUS" != "200" ]; then
             echo "HEALTHCHECK_FAILED=true" >> "$GITHUB_ENV"
-            echo "::error::Site responded with HTTP $HTTP_STATUS"
           fi
 
       - name: Create GitHub Issue on failure
@@ -39,12 +47,13 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const status = '${{ steps.check.outputs.status }}'
+            const domain = 'www.' + process.env.DOMAIN
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
             const trigger = context.eventName === 'workflow_run'
               ? 'après un déploiement'
               : 'lors du healthcheck horaire'
 
-            // Rechercher une issue ouverte identique pour éviter les doublons
+            // Éviter les doublons
             const existing = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -69,7 +78,7 @@ jobs:
                 ``,
                 `| Champ | Valeur |`,
                 `|-------|--------|`,
-                `| URL vérifiée | https://client-a.fluen.tech |`,
+                `| URL vérifiée | https://${domain} |`,
                 `| Code HTTP retourné | \`${status}\` |`,
                 `| Date | ${new Date().toISOString()} |`,
                 `| Workflow run | [Voir les logs](${runUrl}) |`,
@@ -81,3 +90,7 @@ jobs:
                 `- [ ] Rollback si nécessaire via le workflow Deploy (workflow_dispatch avec un SHA stable)`,
               ].join('\n'),
             })
+
+      - name: Fail job on unhealthy site
+        if: env.HEALTHCHECK_FAILED == 'true'
+        run: exit 1

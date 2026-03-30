@@ -84,7 +84,7 @@ const Footer = () => {
                   />
                 </svg>
               </Link>
-              <Link
+              {/*<Link
                 href="https://facebook.com/ubagnu"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -104,7 +104,7 @@ const Footer = () => {
                     fill="currentColor"
                   />
                 </svg>
-              </Link>
+              </Link>*/}
             </div>
           </div>
         </div>

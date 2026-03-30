@@ -41,6 +41,14 @@ const galleryImages = [
     src: "/img/gallery/3-c.webp",
     alt: "Bien-être et régénération du corps après effort",
   },
+  {
+    src: "/img/gallery/4-d.jpg",
+    alt: "Récupération sportive",
+  },
+  {
+    src: "/img/gallery/4-a.jpg",
+    alt: "Spa et relaxation",
+  },
 ]
 
 // Helper to get alt text by image source

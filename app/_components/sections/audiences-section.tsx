@@ -8,7 +8,7 @@ const audiences = [
     subtitle: "Performance individuelle ou collective",
     description:
       "Optimisez votre récupération après l'effort et restez performant plus longtemps.",
-    image: "/img/audiences/athletes.jpg",
+    image: "/img/audiences/athletes.webp",
     gradient:
       "linear-gradient(180deg, rgba(41, 84, 164, 0.75) 0%, rgba(41, 84, 164, 0) 100%)",
   },

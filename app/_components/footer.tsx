@@ -64,7 +64,7 @@ const Footer = () => {
             {/* Social links */}
             <div className="flex items-center gap-[16px]">
               <Link
-                href="https://instagram.com/ubagnu"
+                href="https://www.instagram.com/u_bagnu/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"

@@ -35,7 +35,7 @@ const HeroSection = () => {
       <div className="relative z-2 flex flex-col gap-[32px] pt-[80px] md:gap-[40px] md:pt-[120px] lg:gap-[45px] lg:pt-[160px]">
         <div className="flex h-[526px] flex-col justify-between gap-[42px] text-white md:h-auto md:gap-[45px]">
           <h1 className="text-[48px] leading-[110%] font-medium md:text-[72px] lg:text-[96px] lg:leading-[99px]">
-            Bains froids,
+            Bains immersifs,
             <br /> Pressothérapie
             <br /> & Sauna
           </h1>
@@ -67,6 +67,7 @@ const HeroSection = () => {
           <Button
             variant="outline"
             className="w-full max-sm:backdrop-blur-lg lg:w-auto"
+            disabled
           >
             Réserver votre séance
           </Button>

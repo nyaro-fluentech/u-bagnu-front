@@ -267,6 +267,7 @@ const MobileMenu = () => {
                     variant="outline"
                     onClick={closeMenu}
                     className="w-full border-[#2E2E2E]/30 text-[#2E2E2E]"
+                    disabled
                   >
                     Réserver votre séance
                   </Button>

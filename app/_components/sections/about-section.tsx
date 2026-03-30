@@ -51,16 +51,16 @@ const AboutSection = () => {
         <div className="mt-[40px] flex flex-col gap-[24px] md:mt-[60px]">
           <p className="font-inter text-[16px] leading-[150%] md:text-[18px]">
             Notre leitmotiv : amener la récupération directement là où
-            l&apos;effort a lieu, en cabinet ou en déplacement, au sein des
-            clubs, structures sportives et événements.
+            l&apos;effort a lieu, sur site ou en déplacement, au sein des clubs,
+            structures sportives et événements.
           </p>
 
           <p className="font-inter text-[16px] leading-[150%] md:text-[18px]">
             Issue de la préparation physique, notre approche repose sur des
-            solutions simples et reconnues — bain froid, bain contrasté, sauna,
-            pressothérapie — utilisées avec méthode. Accessible et mobile, U
-            Bagnu s&apos;adresse aux sportifs individuels comme aux équipes,
-            avec une conviction forte : la récupération doit suivre le
+            solutions simples et reconnues — bain immersif, bain contrasté,
+            sauna, pressothérapie — utilisées avec méthode. Accessible et
+            mobile, U Bagnu s&apos;adresse aux sportifs individuels comme aux
+            équipes, avec une conviction forte : la récupération doit suivre le
             mouvement, pas l&apos;inverse.
           </p>
         </div>
@@ -102,13 +102,13 @@ const AboutSection = () => {
 
             <p className="font-inter text-[20px] leading-[125%]">
               Notre leitmotiv : amener la récupération directement là où
-              l&apos;effort a lieu, en cabinet ou en déplacement, au sein des
+              l&apos;effort a lieu, sur site ou en déplacement, au sein des
               clubs, structures sportives et événements.
             </p>
 
             <p className="font-inter text-[20px] leading-[125%]">
               Issue de la préparation physique, notre approche repose sur des
-              solutions simples et reconnues — bain froid, bain contrasté,
+              solutions simples et reconnues — bain immersif, bain contrasté,
               sauna, pressothérapie — utilisées avec méthode. Accessible et
               mobile, U Bagnu s&apos;adresse aux sportifs individuels comme aux
               équipes, avec une conviction forte : la récupération doit suivre

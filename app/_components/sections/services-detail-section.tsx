@@ -10,18 +10,18 @@ const services = [
       "Des protocoles de récupération professionnels: Cryothérapie, bains contrastés. Tout pour optimiser votre récupération musculaire.",
   },
   {
-    image: "/img/services/image-2.png",
+    image: "/img/services/image-2.webp",
     category: "Détente et bien-être",
     title: "Spa et relaxation",
     description:
       "Un espace dédié à votre détente: massages, sauna, hammam. Libérez les tensions et retrouvez votre sérénité intérieure.",
   },
   {
-    image: "/img/services/image-3.png",
-    category: "Santé et vitalité",
-    title: "Soins thérapeutiques",
+    image: "/img/services/image-3.webp",
+    category: "Mobilité opérationnelle",
+    title: "Des solutions de soins déployables partout",
     description:
-      "Des soins personnalisés pour votre bien-être global: ostéopathie, kinésithérapie, nutrition. Une approche holistique de votre santé.",
+      "Nous mettons à disposition des équipements thérapeutiques utilisables à domicile ou sur site, avec un accompagnement ciblé. Objectif : améliorer la récupération, réduire les contraintes logistiques et maximiser la performance.",
   },
 ]
 

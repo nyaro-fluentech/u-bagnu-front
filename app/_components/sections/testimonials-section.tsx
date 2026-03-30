@@ -3,27 +3,27 @@ import TestimonialsCarousel from "./testimonials-carousel"
 const testimonials = [
   {
     id: 1,
-    name: "Théo Caron",
-    title: "Ailier Droite – Club de Bastia",
+    name: "Sébastien Giambernardi",
+    title: "Traileur",
     quote:
-      "U Bagnu m'aide à rester constant dans ma performance. Après chaque match, leurs soins ciblés soulagent mes tensions et accélèrent ma récupération. Leur approche mobile et méthodique me permet de m'entraîner sereinement, de prévenir les blessures et d'aborder chaque tournoi avec confiance et énergie.",
+      "En trail, mes jambes sont mises à rude épreuve à chaque sortie, la pressothérapie m'aide vraiment à retrouver des jambes légères. Avec cette routine, je récupère mieux, et surtout, je peux repartir plus vite sur les sentiers avec de bonnes sensations.",
     image: "/img/testimonials/seb.png",
   },
   {
     id: 2,
     name: "Lauriane",
-    title: "Ailier Droite – Club de Bastia",
+    title: "Coach Sportive",
     quote:
-      "U Bagnu m'aide à rester constant dans ma performance. Après chaque match, leurs soins ciblés soulagent mes tensions et accélèrent ma récupération. Leur approche mobile et méthodique me permet de m'entraîner sereinement, de prévenir les blessures et d'aborder chaque tournoi avec confiance et énergie.",
+      "Le bain froid est devenu un vrai allié dans ma routine de récupération. Après mes entraînements et compétitions de course à pied ou entre mes coachings, il m'aide à mieux récupérer musculairement et à repartir plus vite !",
     image: "/img/testimonials/lauriane.png",
   },
   {
     id: 3,
-    name: "Thomas Ferracci",
-    title: "Croff fit Coach – Région bastiaise",
+    name: "Julien Vadella",
+    title: "CrossFiteur",
     quote:
-      "U Bagnu m'aide à rester constant dans ma performance. Après chaque match, leurs soins ciblés soulagent mes tensions et accélèrent ma récupération. Leur approche mobile et méthodique me permet de m'entraîner sereinement, de prévenir les blessures et d'aborder chaque tournoi avec confiance et énergie.",
-    image: "/img/testimonials/thomas.png",
+      "Avec le CrossFit, la récupération est essentielle. Le combo bain froid-sauna me permet d'enchaîner les entraînements et d'être plus performant en compétition. Aujourd'hui, c'est indispensable pour moi.",
+    image: "/img/testimonials/julien.png",
   },
 ]
 

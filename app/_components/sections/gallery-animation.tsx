@@ -5,7 +5,7 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 const TOTAL_IMAGE_BLOCKS = 7
-const TOTAL_IMAGES = 9
+const TOTAL_IMAGES = 11
 
 const GalleryAnimation = () => {
   const marqueeRef = useRef<gsap.core.Tween | null>(null)

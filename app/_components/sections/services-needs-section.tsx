@@ -9,7 +9,7 @@ const CALENDLY_URL = "https://calendly.com/ubagnu"
 const services = [
   {
     id: "bains",
-    label: "BAINS FROIDS",
+    label: "BAINS IMMERSIFS",
     price: "À partir de 16 €* / séance",
     description:
       "Favorise la récupération musculaire diminue les inflammations et prépare le corps à l'enchaînement des efforts.",
@@ -63,7 +63,7 @@ const ServicesNeedsSection = () => {
     >
       {/* Background Image */}
       <Image
-        src="/img/services/needs-background.jpg"
+        src="/img/services/needs-background.webp"
         alt="Athlète en séance de récupération sportive"
         role="presentation"
         fill
@@ -132,10 +132,8 @@ const ServicesNeedsSection = () => {
                           {service.buttonText}
                         </Button>
                       ) : (
-                        <Button variant="secondary" asChild>
-                          <Link href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                            {service.buttonText}
-                          </Link>
+                        <Button variant="secondary" disabled>
+                          {service.buttonText}
                         </Button>
                       )}
                     </div>
@@ -189,14 +187,20 @@ const ServicesNeedsSection = () => {
 
                   {/* Button */}
                   {service.buttonText === "Contact" ? (
-                    <Button variant="secondary" className="w-fit" data-open-contact>
+                    <Button
+                      variant="secondary"
+                      className="w-fit"
+                      data-open-contact
+                    >
                       {service.buttonText}
                     </Button>
                   ) : (
-                    <Button variant="secondary" className="w-fit" asChild>
-                      <Link href={CALENDLY_URL} target="_blank" rel="noopener noreferrer">
-                        {service.buttonText}
-                      </Link>
+                    <Button
+                      variant="secondary"
+                      className="w-fit"
+                      disabled
+                    >
+                      {service.buttonText}
                     </Button>
                   )}
                 </div>

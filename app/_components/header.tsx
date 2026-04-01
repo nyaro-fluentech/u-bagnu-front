@@ -36,6 +36,9 @@ const Header = () => {
               <nav id="header-nav-links" className="hidden lg:block">
                 <ul className="font-bricolage-grotesque flex gap-[24px]">
                   <li>
+                    <Link href="/#hero">Accueil</Link>
+                  </li>
+                  <li>
                     <Link href="/#services">Services</Link>
                   </li>
                   <li>

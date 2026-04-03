@@ -267,9 +267,11 @@ const MobileMenu = () => {
                     variant="outline"
                     onClick={closeMenu}
                     className="w-full border-[#2E2E2E]/30 text-[#2E2E2E]"
-                    disabled
+                    asChild
                   >
-                    Réserver votre séance
+                    <a href="https://member-app.deciplus.pro/ubagnu" target="_blank" rel="noopener noreferrer">
+                      Réserver votre séance
+                    </a>
                   </Button>
                 </div>
               </div>

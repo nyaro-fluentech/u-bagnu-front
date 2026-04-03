@@ -67,9 +67,11 @@ const HeroSection = () => {
           <Button
             variant="outline"
             className="w-full max-sm:backdrop-blur-lg lg:w-auto"
-            disabled
+            asChild
           >
-            Réserver votre séance
+            <a href="https://member-app.deciplus.pro/ubagnu" target="_blank" rel="noopener noreferrer">
+              Réserver votre séance
+            </a>
           </Button>
         </div>
         {/* Scroll hint - hidden on mobile/tablet */}

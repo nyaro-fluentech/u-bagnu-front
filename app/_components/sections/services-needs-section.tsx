@@ -132,8 +132,10 @@ const ServicesNeedsSection = () => {
                           {service.buttonText}
                         </Button>
                       ) : (
-                        <Button variant="secondary" disabled>
-                          {service.buttonText}
+                        <Button variant="secondary" asChild>
+                          <a href="https://member-app.deciplus.pro/ubagnu" target="_blank" rel="noopener noreferrer">
+                            {service.buttonText}
+                          </a>
                         </Button>
                       )}
                     </div>
@@ -198,9 +200,11 @@ const ServicesNeedsSection = () => {
                     <Button
                       variant="secondary"
                       className="w-fit"
-                      disabled
+                      asChild
                     >
-                      {service.buttonText}
+                      <a href="https://member-app.deciplus.pro/ubagnu" target="_blank" rel="noopener noreferrer">
+                        {service.buttonText}
+                      </a>
                     </Button>
                   )}
                 </div>

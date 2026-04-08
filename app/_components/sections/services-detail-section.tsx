@@ -14,7 +14,7 @@ const services = [
     category: "Détente et bien-être",
     title: "Spa et relaxation",
     description:
-      "Un espace dédié à votre détente: massages, sauna, hammam. Libérez les tensions et retrouvez votre sérénité intérieure.",
+      "Un Sauna dédié à votre détente. Libérez les tensions et retrouvez votre sérénité intérieure.",
   },
   {
     image: "/img/services/image-3.webp",

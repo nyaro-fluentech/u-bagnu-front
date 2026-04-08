@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     }
 
     const { error } = await resend.emails.send({
-      from: "U Bagnu <onboarding@resend.dev>",
+      from: "U Bagnu <noreply@ubagnu.com>",
       to: TO_EMAIL,
       subject: `Nouvelle demande de contact — ${typeLabels[type] || type}`,
       replyTo: email,

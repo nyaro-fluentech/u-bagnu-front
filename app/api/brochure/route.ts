@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     const brochureBuffer = fs.readFileSync(BROCHURE_PATH)
 
     const { error } = await resend.emails.send({
-      from: "U Bagnu <onboarding@resend.dev>",
+      from: "U Bagnu <noreply@ubagnu.com>",
       to: email,
       subject: "Votre brochure U Bagnu est arrivée !",
       attachments: [
